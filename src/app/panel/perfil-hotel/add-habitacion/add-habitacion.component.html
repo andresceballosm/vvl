@@ -1,0 +1,96 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-danger">
+                    <h4 class="card-title">Registro</h4>
+                </div>
+                <div class="card-body">    
+                  <form #myForm="ngForm" (submit)="onSubmit(myForm)">
+                    <mat-form-field>
+                        <input matInput placeholder="Nombre" [(ngModel)]="habitacion.nombre" name="nombre">
+                    </mat-form-field>
+                    <mat-form-field >
+                      <mat-select multiple placeholder="Servicios"  [(ngModel)]="habitacion.servicios" name="servicios">
+                        <mat-option  value="primary" *ngFor="let s of servicios" [value]="s">{{s}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                      <mat-select placeholder="Número de huéspedes"  [(ngModel)]="habitacion.huespedes" name="huespedes">
+                          <mat-option value="huespedes" *ngFor="let s of numeros" [value]="s">{{s}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                      <mat-select placeholder="Baños privados"  [(ngModel)]="habitacion.banos_privados" name="banos_privados">
+                          <mat-option value="banos_privados" *ngFor="let c of numeros" [value]="c">{{c}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                      <mat-select placeholder="Baños públicos"  [(ngModel)]="habitacion.banos_publicos" name="banos_publicos">
+                          <mat-option value="banos_publicos" *ngFor="let c of numeros" [value]="c">{{c}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                      <mat-select placeholder="Camas individuales"  [(ngModel)]="habitacion.camas_individuales" name="camas_individuales">
+                          <mat-option value="camas_individuales" *ngFor="let i of numeros" [value]="i">{{i}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                      <mat-select placeholder="Camas matrimoniales"  [(ngModel)]="habitacion.camas_matrimoniales" name="camas_matrimoniales">
+                          <mat-option value="camas_matrimoniales" *ngFor="let m of numeros" [value]="m">{{m}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                      <mat-select placeholder="Camarotes"  [(ngModel)]="habitacion.camarotes" name="camarotes">
+                          <mat-option value="camarotes" *ngFor="let m of numeros" [value]="m">{{m}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                      <mat-select placeholder="Moneda"  [(ngModel)]="habitacion.moneda" name="moneda">
+                          <mat-option value="moneda" *ngFor="let m of moneda" [value]="m">{{m}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                      <input matInput placeholder="Precio noche temportada baja" type="number"  [(ngModel)]="habitacion.precio_noche_tbaja" name="precio_noche_tbaja">
+                      <span matPrefix>$&nbsp;</span>
+                      <span matSuffix *ngIf="habitacion.moneda=='COP'">COP</span>
+                      <span matSuffix *ngIf="habitacion.moneda=='USD'">USD</span>
+                    </mat-form-field>
+					 <mat-form-field>
+                      <input matInput placeholder="Precio noche temporada alta" type="number"  [(ngModel)]="habitacion.precio_noche_talta" name="precio_noche_talta">
+                      <span matPrefix>$&nbsp;</span>
+                      <span matSuffix *ngIf="habitacion.moneda=='COP'">COP</span>
+                      <span matSuffix *ngIf="habitacion.moneda=='USD'">USD</span>
+                    </mat-form-field>
+                    <mat-form-field>
+                      <input matInput placeholder="Precio mes *Si no aplica $0" type="number"  [(ngModel)]="habitacion.precio_mes" name="precio_mes">
+                      <span matPrefix>$&nbsp;</span>
+                      <span matSuffix *ngIf="habitacion.moneda=='COP'">COP</span>
+                      <span matSuffix *ngIf="habitacion.moneda=='USD'">USD</span>
+                    </mat-form-field>
+                    <mat-form-field>
+                      <input matInput placeholder="Hora de llegada" type="time" [(ngModel)]="habitacion.hora_llegada" name="hora_llegada">
+                    </mat-form-field>
+                    <mat-form-field>
+                      <input matInput placeholder="Hora de salida" type="time" [(ngModel)]="habitacion.hora_salida" name="hora_salida">
+                    </mat-form-field>
+                    <mat-form-field >
+                    <mat-select placeholder="Cancelación"  [(ngModel)]="habitacion.cancelacion" name="cancelacion">
+                        <mat-option  value="primary" *ngFor="let h of cancelacion" [value]="h">{{h}}</mat-option>
+                    </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                      <input matInput placeholder="Descripción" [(ngModel)]="habitacion.descripcion" name="descripcion">
+                    </mat-form-field>
+                    <mat-form-field>
+                      <input matInput placeholder="Reglas" [(ngModel)]="habitacion.reglas" name="reglas">
+                    </mat-form-field>
+                    <input type="submit" value="Registrar" class="btn btn-danger btn-block btn-lg">
+                  </form>
+                </div>
+            </div>
+        </div>
+      </div> 
+  </div>
+</div>

@@ -1,0 +1,51 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-danger">
+                    <h4 class="card-title">Registro</h4>
+                </div>
+                <div class="card-body">    
+                  <form #myForm="ngForm" (submit)="onSubmit(myForm)">
+                    <mat-form-field>
+                        <input matInput placeholder="Nombre" [(ngModel)]="plato.nombre" name="nombre">
+                    </mat-form-field>
+                    <mat-form-field>
+                      <input type="number" matInput placeholder="Cantidad" [(ngModel)]="plato.cantidad" name="cantidad">
+                    </mat-form-field>
+                    <mat-select placeholder="Unidad de medida"  [(ngModel)]="plato.und_medida" name="und_medida">
+                      <mat-option value="und_medida" *ngFor="let u of undMedida" [value]="u">{{u}}</mat-option>
+                    </mat-select>
+                    <mat-form-field>
+                      <mat-select placeholder="Tipo de plato"  [(ngModel)]="plato.type_eat" name="type_eat">
+                          <mat-option value="type_eat" *ngFor="let t of typePlato" [value]="t">{{t}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                      <mat-select placeholder="Numero de personas"  [(ngModel)]="plato.num_personas" name="num_personas">
+                          <mat-option value="num_personas" *ngFor="let i of numeros" [value]="i">{{i}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                    <mat-select placeholder="Moneda"  [(ngModel)]="plato.moneda" name="moneda">
+                      <mat-option value="moneda" *ngFor="let m of moneda" [value]="m">{{m}}</mat-option>
+                    </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                      <input matInput placeholder="Precio sin puntos y comas" type="number"  [(ngModel)]="plato.precio" name="precio">
+                      <span matPrefix>$&nbsp;</span>
+                      <span matSuffix *ngIf="plato.moneda=='COP'">COP</span>
+                      <span matSuffix *ngIf="plato.moneda=='USD'">USD</span>
+                    </mat-form-field>
+                    <mat-form-field>
+                      <input matInput placeholder="Descripción" [(ngModel)]="plato.descripcion" name="descripcion">
+                    </mat-form-field>
+                    <input type="submit" value="Registrar" class="btn btn-danger btn-block btn-lg">
+                  </form>
+                </div>
+            </div>
+        </div>
+      </div> 
+  </div>
+</div>

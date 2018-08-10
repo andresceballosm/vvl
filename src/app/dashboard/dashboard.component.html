@@ -1,0 +1,295 @@
+
+<div class="main-content" style="padding-top:120px">
+    <div> 
+        <div>
+            <form >
+                <div class="input-group no-border">
+                    <input type="text" value="" style="color:beige" class="form-control" placeholder="  Buscar...">
+                    <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon">
+                    <i class="material-icons">search</i>
+                    </button>
+                </div>
+            </form>
+        </div> 
+    </div>      
+<mat-tab-group #tabGroup (selectedTabChange)="onTabs($event)">
+  <mat-tab label="VVL">
+  <mat-spinner *ngIf="showSpinner==true"></mat-spinner>
+  <div class="container-fluid" *ngIf="showSpinner==false"> 
+ <br> 
+ <div *ngIf="isMobileMenu()">    
+ <h1 mat-dialog-title>ALOJAMIENTOS</h1>
+     <div *ngFor="let i of negocios" class="paddingCard">
+        <mat-card *ngIf="i.categoria == 'Hotel'">
+            <mat-card-title (click)="perfilHotel(i.key)" class="titulo">{{i.nombre}}</mat-card-title>
+            <mat-card-subtitle (click)="perfilHotel(i.key)" class="subtitulo">{{i.subcategoriah}}</mat-card-subtitle>
+            <ui-carousel  [infinite]="false" [fade]="false" [speed]="4000" [autoPlay]="false">
+                <div *ngFor="let item of items">
+                    <div *ngIf="item.idNegocio == i.key">
+                        <ui-carousel-item *ngIf="item.name!=undefined">
+                            <div style="position:absolute; z-index:2"><p style="color:white">{{item.nombre}}</p></div>
+                            <img [ui-lazy-load]="item.name" style="position:absolute;z-index:-2; width: 100%;
+                            height:100%"> 
+                        </ui-carousel-item>
+                    </div>
+                </div>
+            </ui-carousel>  
+            <mat-card-content (click)="perfilHotel(i.key)">
+                  <div class="footCard" (click)="perfilHotel(i.key)">
+                    <i class="material-icons text-basic">place</i>
+                    <a class="paddingFoot"><strong>{{i.direccion}}   </strong></a>
+                    <i class="material-icons text-basic">pets</i>
+                    <a class="paddingFoot"><strong>{{i.mascotas}}</strong></a>
+                </div>
+            </mat-card-content>
+        </mat-card>
+     </div>
+ <br>
+ <input type="submit" value="Ver mas restaurantes" (click)="viewRestaurantes()" class="btn btn-basic btn-block btn-lg">
+ <h1 mat-dialog-title>RESTAURANTES</h1>
+     <div *ngFor="let i of negocios" class="paddingCard">
+        <mat-card *ngIf="i.categoria == 'Restaurante'">
+            <mat-card-title (click)="perfilRestaurante(i.key)">{{i.nombre}}</mat-card-title>
+            <mat-card-subtitle (click)="perfilRestaurante(i.key)" class="subtitulo">{{i.subcategoriar}}</mat-card-subtitle>
+               <ui-carousel [infinite]="false" [fade]="false" [speed]="4000" [autoPlay]="false">
+                <div *ngFor="let item of items">
+                    <div *ngIf="item.idNegocio == i.key">
+                        <ui-carousel-item *ngIf="item.name!=undefined">
+                            <div style="position:absolute; z-index:2"><p style="color:white">{{item.nombre}}</p></div>
+                            <img [ui-lazy-load]="item.name" style="position:absolute;z-index:-2; width: 100%;
+                            height: 100%"> 
+                        </ui-carousel-item>
+                    </div>
+                </div>
+            </ui-carousel>  
+            <mat-card-content>
+                  <div  class="footCard" (click)="perfilRestaurante(i.key)">
+                    <i class="material-icons text-basic">place</i>
+                    <a class="paddingFoot"><strong>{{i.direccion}}</strong></a>
+                    <i class="material-icons text-basic">pets</i>
+                    <a class="paddingFoot"><strong>{{i.mascotas}}</strong></a>
+                </div>
+            </mat-card-content>
+        </mat-card>
+     </div>
+ <br>
+ <h1 mat-dialog-title>EXPERIENCIAS</h1>
+ <mat-grid-list cols="2" rowHeight="1:1">
+     <div *ngFor="let i of negocios" class="paddingCard">
+        <mat-card *ngIf="i.categoria == 'Experiencia'">
+            <mat-card-title (click)="perfilExperiencia(i.key)">{{i.nombre}}</mat-card-title>
+            <mat-card-subtitle (click)="perfilExperiencia(i.key)" class="subtitulo">{{i.subcategoriae}}</mat-card-subtitle>
+               <ui-carousel [infinite]="false" [fade]="false" [speed]="4000" [autoPlay]="false">
+                <div *ngFor="let item of items">
+                    <div *ngIf="item.idNegocio == i.key">
+                        <ui-carousel-item *ngIf="item.name!=undefined">
+                            <div style="position:absolute; z-index:2"><p style="color:white">{{item.nombre}}</p></div>
+                            <img [ui-lazy-load]="item.name" style="position:absolute;z-index:-2; width: 100%;
+                            height: 100%"> 
+                        </ui-carousel-item>
+                    </div>
+                </div>
+            </ui-carousel>  
+            <mat-card-content>
+                  <div class="footCard" (click)="perfilExperiencia(i.key)">
+                    <i class="material-icons text-basic">place</i>
+                    <a class="paddingFoot"><strong>{{i.direccion}}</strong></a>
+                    <i class="material-icons text-basic">pets</i>
+                    <a class="paddingFoot"><strong>{{i.mascotas}}</strong></a>
+                </div>
+            </mat-card-content>
+        </mat-card>
+     </div>
+ </mat-grid-list>
+</div>
+    <div class="row" *ngIf="!isMobileMenu()">
+    <div class="col-md-4">
+        <h2 mat-dialog-title>Alojamientos</h2>
+            <div *ngFor="let i of negocios">
+            <mat-dialog-content>
+                <div *ngIf="i.categoria == 'Hotel'">
+                    <mat-grid-list cols="2" rowHeight="2:1">
+                    <ui-carousel [infinite]="false" [fade]="false" [speed]="4000" [autoPlay]="false">
+                        <div *ngFor="let item of items">
+                            <div *ngIf="item.idNegocio == i.key">
+                                <ui-carousel-item *ngIf="item.name!=undefined">
+                                    <div style="position:absolute; z-index:2"><p style="color:white">{{item.nombre}}</p></div>
+                                    <img [ui-lazy-load]="item.name" style="position:absolute;z-index:-2; width: 100%;
+                                    height: 100%"> 
+                                </ui-carousel-item>
+                            </div>
+                        </div>
+                    </ui-carousel>  
+                    <div style="border-bottom: 0.1px solid;" (click)="perfilHotel(i.key)">
+                            <h4 style="color:#9c27b0;">{{i.nombre}}</h4>
+                        <i class="material-icons text-basic">home</i>
+                        <a><strong>{{i.subcategoriah}}   </strong></a>
+                        <i class="material-icons text-basic">pets</i>
+                        <a><strong>{{i.mascotas}}</strong></a>
+                    </div>  
+                        </mat-grid-list>
+                    <br> 
+                </div>
+            </mat-dialog-content>
+            </div>
+        <input type="submit" value="Ver mas alojamientos" role="tab" tabindex="1" class="btn btn-basic btn-block btn-lg">
+    </div>
+    <div class="col-md-4">
+        <h2 mat-dialog-title *ngIf="isMobileMenu()">Restaurantes</h2>
+        <mat-dialog-content *ngFor="let i of negocios">
+            <div *ngIf="i.categoria == 'Restaurante'">
+            <ui-carousel [infinite]="false" [fade]="false" [speed]="4000" [autoPlay]="false">
+                <div *ngFor="let item of items">
+                <div *ngIf="item.idNegocio == i.key">
+                <ui-carousel-item *ngIf="item.name!=undefined">
+                    <div style="position:absolute; z-index:2"><p style="color:white">{{item.nombre}}</p></div>
+                    <img [ui-lazy-load]="item.name" style="position:absolute;z-index:-2; width: 100%;
+                    height: 100%"> 
+                </ui-carousel-item>
+                </div>
+                </div>
+            </ui-carousel>  
+            <div>
+                <h4 style="color:#9c27b0">{{i.nombre}}</h4>
+                <i class="material-icons text-basic">home</i>
+                <a><strong>{{i.subcategoriah}}   </strong></a>
+                <i class="material-icons text-basic">pets</i>
+                <a><strong>{{i.mascotas}}</strong></a>
+            </div>  
+            <br> 
+        </div>
+        </mat-dialog-content>
+        <input type="submit" value="Ver mas restaurantes" (click)="viewRestaurantes()" class="btn btn-basic btn-block btn-lg">
+    </div>
+    <div class="col-md-4">
+            <h2 mat-dialog-title>Experiencias</h2>
+            <mat-dialog-content *ngFor="let i of negocios">
+                <div *ngIf="i.categoria == 'Experiencia'">
+                <h4 style="color:#9c27b0">{{i.nombre}}</h4>
+                <ui-carousel [infinite]="false" [fade]="false" [speed]="4000" [autoPlay]="false">
+                    <div *ngFor="let item of items">
+                    <div *ngIf="item.idNegocio == i.key">
+                    <ui-carousel-item *ngIf="item.name!=undefined">
+                        <div style="position:absolute; z-index:2"><p style="color:white">{{item.nombre}}</p></div>
+                        <img [ui-lazy-load]="item.name" style="position:absolute;z-index:-2; width: 100%;
+                        height: 100%"> 
+                    </ui-carousel-item>
+                    </div>
+                    </div>
+                </ui-carousel>  
+                <div>
+                    <i class="material-icons text-basic">home</i>
+                    <a><strong>{{i.subcategoriah}}   </strong></a>
+                    <i class="material-icons text-basic">pets</i>
+                    <a><strong>{{i.mascotas}}</strong></a>
+                </div>  
+                <br> 
+            </div>
+            </mat-dialog-content>
+            <input type="submit" value="Ver mas experiencias" (click)="viewExperiencias()" class="btn btn-basic btn-block btn-lg">
+        </div>
+    </div>
+  </div>
+  </mat-tab>
+  <mat-tab label="+Alojamientos"> 
+        <mat-spinner *ngIf="showSpinner==true"></mat-spinner>
+        <div class="container-fluid" *ngIf="showSpinner==false"> 
+            <div class="row">
+              <div class="col-md-4">      
+               <div class="paddingCard"> 
+                <mat-card *ngFor="let h of hoteles">
+                    <mat-card-title (click)="perfilHotel(h.key)" style="margin-bottom:5px">{{h.nombre}}</mat-card-title>
+                    <mat-card-subtitle (click)="perfilHotel(h.key)">{{h.subcategoriah}}</mat-card-subtitle>
+                    <ui-carousel  [infinite]="false" [fade]="false" [speed]="4000" [autoPlay]="false">
+                        <div *ngFor="let hm of hotelsImg">
+                            <div *ngIf="hm.idNegocio == h.key">
+                                <ui-carousel-item *ngIf="hm.name!=undefined">
+                                    <div style="position:absolute; z-index:2"><p style="color:white">{{hm.nombre}}</p></div>
+                                    <img [ui-lazy-load]="hm.name" style="position:absolute;z-index:-2; width: 100%;
+                                    height:100%"> 
+                                </ui-carousel-item>
+                            </div>
+                        </div>
+                    </ui-carousel>  
+                    <mat-card-content (click)="perfilHotel(h.key)">
+                            <div  (click)="perfilHotel(h.key)">
+                            <i class="material-icons text-basic">home</i>
+                            <a><strong>{{h.subcategoriah}}   </strong></a>
+                            <i class="material-icons text-basic">pets</i>
+                            <a><strong>{{h.mascotas}}</strong></a>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+                </div>  
+              </div>
+            </div>
+        </div>
+  </mat-tab>
+  <mat-tab label="+Restaurantes"> 
+        <mat-spinner class="spinner" *ngIf="showSpinner==true"></mat-spinner>
+        <div class="container-fluid" *ngIf="showSpinner==false"> 
+            <div class="row">
+              <div class="col-md-4">
+                <br>
+                <mat-card *ngFor="let r of restaurantes">
+                    <mat-card-title (click)="perfilRestaurante(r.key)">{{r.nombre}}</mat-card-title>
+                    <mat-card-subtitle (click)="perfilRestaurante(i.key)">{{r.subcategoriar}}</mat-card-subtitle>
+                        <ui-carousel [infinite]="false" [fade]="false" [speed]="4000" [autoPlay]="false">
+                        <div *ngFor="let rm of restaurantsImg">
+                            <div *ngIf="rm.idNegocio == r.key">
+                                <ui-carousel-item *ngIf="rm.name!=undefined">
+                                    <div style="position:absolute; z-index:2"><p style="color:white">{{rm.nombre}}</p></div>
+                                    <img [ui-lazy-load]="rm.name" style="position:absolute;z-index:-2; width: 100%;
+                                    height: 100%"> 
+                                </ui-carousel-item>
+                            </div>
+                        </div>
+                    </ui-carousel>  
+                    <mat-card-content>
+                            <div (click)="perfilRestaurante(r.key)">
+                            <i class="material-icons text-basic">home</i>
+                            <a><strong>{{r.subcategoriar}}   </strong></a>
+                            <i class="material-icons text-basic">pets</i>
+                            <a><strong>{{r.mascotas}}</strong></a>
+                        </div>
+                    </mat-card-content>
+                </mat-card>                 
+              </div>
+            </div>
+        </div>
+  </mat-tab>
+  <mat-tab label="+Experiencias">
+        <mat-spinner class="spinner" *ngIf="showSpinner==true"></mat-spinner>
+        <div class="container-fluid" *ngIf="showSpinner==false"> 
+            <div class="row">
+                <div class="col-md-4">
+                    <br>
+                    <mat-card *ngFor="let e of experiencias">
+                        <mat-card-title (click)="perfilExperiencia(e.key)">{{e.nombre}}</mat-card-title>
+                        <mat-card-subtitle (click)="perfilExperiencia(i.key)">{{e.subcategoriae}}</mat-card-subtitle>
+                            <ui-carousel [infinite]="false" [fade]="false" [speed]="4000" [autoPlay]="false">
+                            <div *ngFor="let em of experiencesImg">
+                                <div *ngIf="em.idNegocio == e.key">
+                                    <ui-carousel-item *ngIf="em.name!=undefined">
+                                        <div style="position:absolute; z-index:2"><p style="color:white">{{em.nombre}}</p></div>
+                                        <img [ui-lazy-load]="em.name" style="position:absolute;z-index:-2; width: 100%;
+                                        height: 100%"> 
+                                    </ui-carousel-item>
+                                </div>
+                            </div>
+                        </ui-carousel>  
+                        <mat-card-content>
+                                <div  (click)="perfilExperiencia(e.key)">
+                                <i class="material-icons text-basic">home</i>
+                                <a><strong>{{e.subcategoriae}}   </strong></a>
+                                <i class="material-icons text-basic">pets</i>
+                                <a><strong>{{e.mascotas}}</strong></a>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+  </mat-tab>
+</mat-tab-group> 
+</div>

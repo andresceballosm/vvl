@@ -1,0 +1,52 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-danger">
+                    <h4 class="card-title">Editar</h4>
+                </div>
+                <div class="card-body">    
+                  <form #myForm="ngForm" (submit)="onSubmit(myForm)">
+                    <mat-form-field>
+                        <input matInput placeholder="Nombre" [(ngModel)]="experiencia.nombre" name="nombre">
+                    </mat-form-field>
+                    <mat-form-field>
+                    <mat-select placeholder="Numero de personas"  [(ngModel)]="experiencia.num_personas" name="num_personas">
+                      <mat-option value="num_personas" *ngFor="let i of numeros" [value]="i">{{i}}</mat-option>
+                    </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                    <mat-select placeholder="Moneda"  [(ngModel)]="experiencia.moneda" name="moneda">
+                      <mat-option value="moneda" *ngFor="let m of moneda" [value]="m">{{m}}</mat-option>
+                    </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                      <input matInput placeholder="Precio" type="number"  [(ngModel)]="experiencia.precio" name="precio">
+                      <span matPrefix>$&nbsp;</span>
+                      <span matSuffix *ngIf="experiencia.moneda=='COP'">COP</span>
+                      <span matSuffix *ngIf="experiencia.moneda=='USD'">USD</span>
+                    </mat-form-field>
+                    <mat-form-field>
+                      <input matInput placeholder="Herramientas" [(ngModel)]="experiencia.herramientas" name="herramientas">
+                    </mat-form-field>
+                    <mat-form-field>
+                      <input type="number" matInput placeholder="Edad minima" [(ngModel)]="experiencia.edad_min" name="edad_min">
+                    </mat-form-field>
+                    <mat-select placeholder="Cancelación"  [(ngModel)]="experiencia.cancelacion" name="cancelacion">
+                      <mat-option  value="primary" *ngFor="let h of cancelacion" [value]="h">{{h}}</mat-option>
+                    </mat-select>
+                    <mat-form-field>
+                      <input matInput placeholder="Descripción" [(ngModel)]="experiencia.descripcion" name="descripcion">
+                    </mat-form-field>
+                    <mat-form-field>
+                      <input matInput placeholder="reglas" [(ngModel)]="experiencia.reglas" name="reglas">
+                    </mat-form-field>
+                    <input type="submit" value="Guardar" class="btn btn-danger btn-block btn-lg">
+                  </form>
+                </div>
+            </div>
+        </div>
+      </div> 
+  </div>
+</div>

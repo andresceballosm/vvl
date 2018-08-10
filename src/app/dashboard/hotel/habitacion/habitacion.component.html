@@ -1,0 +1,148 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <mat-spinner *ngIf="showSpinner==true"></mat-spinner>
+      <div class="row">
+            <div class="col-md-12"  *ngIf="(LoadService.loading$ | async) == false">
+                <ui-carousel [infinite]="false" [fade]="false" [speed]="4000" [autoPlay]="false">
+                    <ui-carousel-item *ngFor="let item of getImagesRoom">
+                        <img [ui-lazy-load]="item.url" style="position:absolute; z-index:-2; width: 100%;
+                        height: 100%">
+                    </ui-carousel-item>
+                </ui-carousel>
+                <mat-accordion>
+                    <mat-expansion-panel (opened)="panelOpenState = true"
+                                         (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header style="background-color:#ef5350;">
+                                <a style="color:white;margin-left:100px">RESERVAR</a>
+                        </mat-expansion-panel-header>
+                        <form #myForm="ngForm" (submit)="calculatePrecio(myForm)" style="padding-top:20px">                                              
+                            <mat-form-field>
+                                <input matInput [matDatepicker]="picker1" placeholder="Fecha de ingreso" name="fecha_inicio" [(ngModel)]="fecha_inicio"
+                                [value]="date.value"
+                                [matDatepickerFilter]="myFilter" >
+                                <mat-datepicker-toggle matSuffix [for] ="picker1" ></mat-datepicker-toggle>
+                                <mat-datepicker #picker1 ></mat-datepicker>
+                            </mat-form-field> 
+                            <mat-form-field>
+                                <input matInput [matDatepicker]="picker2" placeholder="Fecha de salida" name="fecha_fin" [(ngModel)]="fecha_fin"
+                                [value]="date.value"
+                                [matDatepickerFilter]="myFilter" >
+                                <mat-datepicker-toggle matSuffix [for] ="picker2" ></mat-datepicker-toggle>
+                                <mat-datepicker #picker2 ></mat-datepicker>
+                            </mat-form-field> 
+                            <p>*Nota : Inicialmente se envia un pre-reservación al administrador de la propiedad
+                                el cual acepta o no la reservación.
+                            </p>
+                             <mat-accordion>
+                                <mat-expansion-panel (click)="calculatePrecio()" (opened)="panelOpenState = true"
+                                                    (closed)="panelOpenState = false">
+                                    <mat-expansion-panel-header style="background-color:#ef5350;">
+                                            <a style="color:white;margin-left:60px">Calcular precio</a>
+                                    </mat-expansion-panel-header>
+                                        <div>
+                                            <mat-spinner *ngIf="showSpinner==true"></mat-spinner>
+                                            <div onclick="calculatePrecio()" class="reload"><i class="material-icons text-basic">autorenew</i></div>                   
+                                            <br>
+                                            <a style="color:rosybrown">Precio x noche : </a>  {{precio_noche | number: '.2'}} {{moneda}} <a>X</a>  {{dias}} <a>noche(s)</a>
+                                            <div *ngIf="salesExactDates!=undefined"><a style="color:rosybrown">Descuento : </a><a>-</a>{{salesExactDates}}<a>%</a></div>
+                                            <div *ngIf="salesAllDates!=undefined"><a style="color:rosybrown">Descuento : </a><a>-</a>{{salesAllDates}}<a>%</a></div>
+                                            <br>
+                                            <a style="color:rosybrown">Precio de la reserva : </a> {{precio_reserva | number: '.2'}} {{moneda}}
+                                            <br>
+                                            <a style="color:rosybrown">Comisión x servicio : </a> {{comision | number: '.2'}} {{moneda}}
+                                            <br>
+                                            <a style="color:rosybrown">Precio total : </a>{{total | number: '.2'}} {{moneda}}
+                                        </div>             
+                                     <input type="submit" (click)="addPrereservacion()" value="Enviar" class="btn btn-danger btn-block btn-lg" [class.disabled]="isdisabled">  
+                                     <div style="color:#f44336" *ngIf="messageresponse!=any">{{messageresponse}}</div>   
+                                </mat-expansion-panel>
+                             </mat-accordion>                         
+                        </form>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            <div *ngFor="let i of getHabitacion" >
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">{{i.nombre}} -- Desde ${{i.precio_noche_tbaja | number: '.2'}} {{i.moneda}}</h4>
+                    </div>
+                    <div class="card-body">    
+                        <mat-grid-list cols="2" rowHeight="3:1">
+                            <mat-grid-tile>
+                                <i class="material-icons text-basic">people</i>
+                            <a><strong>{{i.huespedes}} huespedes</strong></a>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <i class="material-icons text-basic">pets</i>
+                            <a><strong>{{i.moneda}}</strong></a>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                        <mat-divider></mat-divider>
+                        <h4 class="subtitulo"><strong>Camas</strong></h4>
+                        <mat-grid-list cols="2" rowHeight="3:1">
+                            <mat-grid-tile *ngIf="i.camas_matrimoniales>0">
+                            <i class="material-icons text-basic">hotel</i>
+                            <a><strong>{{i.camas_matrimoniales}} doble</strong></a>
+                            </mat-grid-tile>
+                            <mat-grid-tile *ngIf="i.camas_individuales>0">
+                            <i class="material-icons text-basic">hotel</i>
+                            <a><strong>{{i.camas_individuales}} sencillas</strong></a>
+                            </mat-grid-tile>
+                            <mat-grid-tile *ngIf="i.camarotes>0">
+                            <i class="material-icons text-basic">hotel</i>
+                            <a><strong>{{i.camarotes}} camarotes</strong></a>
+                            </mat-grid-tile>
+                        </mat-grid-list>  
+                        <mat-divider></mat-divider>                              
+                        <h4 class="subtitulo"><strong>Baños</strong></h4>
+                        <mat-grid-list cols="2" rowHeight="3:1">
+                            <mat-grid-tile *ngIf="i.banos_privados>0">
+                                <i class="material-icons text-basic">wc</i>
+                                <a><strong>{{i.banos_privados}} privados</strong></a>
+                            </mat-grid-tile>
+                            <mat-grid-tile *ngIf="i.banos_publicos>0">
+                                <i class="material-icons text-basic">wc</i>
+                                <a><strong>{{i.banos_publicos}} públicos</strong></a>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                        <mat-divider></mat-divider>
+                        <h4 class="subtitulo"><strong>Horarios</strong></h4>
+                        <mat-grid-list cols="2" rowHeight="3:1">
+                            <mat-grid-tile *ngIf="i.banos_privados>0">
+                                <i class="material-icons text-basic">alarm</i>
+                                <a><strong>Ingreso : {{i.hora_llegada}}</strong></a>
+                            </mat-grid-tile>
+                            <mat-grid-tile *ngIf="i.banos_publicos>0">
+                                <i class="material-icons text-basic">alarm</i>
+                                <a><strong>Salida : {{i.hora_salida}}</strong></a>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </div>
+                </div>
+                <div class="card">
+                        <div class="card-body">
+                            <h4 class="cancelacion">Descripción</h4>
+                            <p>{{i.descripcion}}</p>
+                            <mat-divider></mat-divider>
+                            <h4 class="cancelacion">Servicios</h4>
+                            <p>{{i.servicios}}</p>
+                        </div>
+                    </div>  
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="cancelacion">Cancelación : {{i.cancelacion}}</h4>
+                    </div>
+                    <div>
+                        <p class="parrafo" *ngIf='i.cancelacion=="Flexible"'>Podrás cancelar hasta 24 horas antes de la reservación y su dinero sera reembolzado - la comisión del servicio</p>
+                        <p class="parrafo" *ngIf='i.cancelacion=="Mesurado"'>Podrás cancelar hasta 48 horas antes de la reservación y su dinero sera reembolzado - la comisión del servicio</p>
+                        <p class="parrafo" *ngIf='i.cancelacion=="Rigido"'>Podrás cancelar hasta 48 horas antes de la reservación y su dinero sera reembolzado en un 50% - la comisión del servicio</p>
+                        <p class="parrafo" *ngIf='i.cancelacion=="Rigido 30 dias"'>Podrás cancelar hasta 30 días antes de la reservación y su dinero sera reembolzado - la comisión del servicio</p>
+                        <p class="parrafo" *ngIf='i.cancelacion=="Rigido 60 dias"'>Podrás cancelar hasta 60 días antes de la reservación y su dinero sera reembolzado - la comisión del servicio</p>
+                        <p class="parrafo" *ngIf='i.cancelacion=="Estancias largas"'>Podrás cancelar hasta 30 días antes de la reservación y su dinero sera reembolzado - la comisión del servicio</p>
+                        <p class="parrafo" *ngIf='i.cancelacion=="No Aplica"'>No aplícan las cancelaciones</p>
+                    </div>  
+                </div>  
+            </div>                 
+        </div>
+      </div>
+  </div>
+</div> 

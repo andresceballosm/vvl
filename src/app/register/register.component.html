@@ -1,0 +1,29 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-8">
+            <div class="card">
+                <div class="card-header card-header-danger">
+                    <h4 class="card-title">Registro</h4>
+                    <p class="card-category">Complete los datos para crear su cuenta</p>
+                </div>
+                <div class="card-body">    
+                  <form (submit)="onSubmitAddUser()">
+                    <mat-form-field>
+                        <input matInput placeholder="Correo electronico" [(ngModel)]="email" name="email">
+                    </mat-form-field>
+                     <mat-form-field>
+                      <input matInput placeholder="Ingrese una contraseña" aria-describedby="emailHelp" [(ngModel)]="password" name="password" [type]="hide ? 'text' : 'password'">
+                      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                    </mat-form-field>
+
+                    <input type="submit" value="Registrar" class="btn btn-blue btn-block">
+                  </form>
+                     <a (click)="onClickFacebookLogin()" target="_blank"><button type="button" class="btn btn-blue button2 fa fa-facebook"> Facebook</button></a>
+                     <a (click)="onClickGoogleLogin()" target="_blank"><button type="button" class="btn btn-white google fa fa-google"> Google</button></a>
+                </div>
+            </div>
+        </div>
+      </div> 
+  </div>
+</div>

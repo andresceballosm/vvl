@@ -1,0 +1,35 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div style="padding-top:150px;" class="row">
+        <div class="col-md-12">
+            <div *ngFor="let i of hoteles">
+                <mat-card *ngIf="i.categoria == 'Hotel'">
+                    <mat-card-title (click)="perfilHotel(i.key)" class="titulo">{{i.nombre}}</mat-card-title>
+                    <mat-card-subtitle (click)="perfilHotel(i.key)" class="subtitulo">{{i.subcategoriah}}</mat-card-subtitle>
+                    <ui-carousel  [infinite]="false" [fade]="false" [speed]="4000" [autoPlay]="false">
+                        <div *ngFor="let item of items">
+                            <div *ngIf="item.idNegocio == i.key">
+                                <ui-carousel-item *ngIf="item.name!=undefined">
+                                    <div style="position:absolute; z-index:2"><p style="color:white">{{item.nombre}}</p></div>
+                                    <img [ui-lazy-load]="item.name" style="position:absolute;z-index:-2; width: 100%;
+                                    height:100%"> 
+                                </ui-carousel-item>
+                            </div>
+                        </div>
+                    </ui-carousel>  
+                    <mat-card-content (click)="perfilHotel(i.key)">
+                          <div class="footCard" (click)="perfilHotel(i.key)">
+                            <i class="material-icons text-basic">place</i>
+                            <a class="paddingFoot"><strong>{{i.direccion}}   </strong></a>
+                            <i class="material-icons text-basic">pets</i>
+                            <a class="paddingFoot"><strong>{{i.mascotas}}</strong></a>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+             </div>
+            <button (click)="prevPage()" [disabled]="!prevKeys?.length">Atrás</button>
+            <button (click)="nextPage()" [disabled]="!nextKey">Siguiente</button>
+        </div>
+    </div>
+  </div>
+</div>

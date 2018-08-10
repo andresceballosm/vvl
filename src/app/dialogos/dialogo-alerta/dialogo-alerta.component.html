@@ -1,0 +1,16 @@
+<div>
+    <h2 mat-dialog-title>Alerta</h2>
+  <hr>
+  <mat-dialog-content>
+  <div>
+      <i class="material-icons">warning</i>
+  </div>  
+  <strong>{{data}}</strong>
+  </mat-dialog-content>
+  <hr>
+  <mat-dialog-actions>
+    <button mat-raised-button color="warn" (click)="onCloseConfirm()">Aceptar</button>
+    <button mat-raised-button color="basic" (click)="onCloseCancel()">Cancelar</button>
+  </mat-dialog-actions>
+  </div>
+  

@@ -1,0 +1,70 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title">Editar negocio {{idNegocio.nombre}}</h4>
+                  </div>
+                  <div class="card-body">    
+                      <form #myForm="ngForm" (submit)="onSubmit(myForm)">
+                          <mat-form-field>
+                                  <input matInput placeholder="Nombre" [(ngModel)]="negocio.nombre" name="nombre">
+                          </mat-form-field>
+                          <mat-form-field *ngIf="idNegocio.categoria=='Hotel'">
+                              <mat-select placeholder="Subcategoría"  [(ngModel)]="negocio.subcategoriah" name="subcategoriah">
+                                <mat-option  value="primary" *ngFor="let h of subHotel" [value]="h">{{h}}</mat-option>
+                              </mat-select>
+                          </mat-form-field>
+                          <mat-form-field *ngIf="idNegocio.categoria=='Restaurante'">
+                              <mat-select placeholder="Subcategoría"  [(ngModel)]="negocio.subcategoriar" name="subcategoriar">
+                                <mat-option  value="primary" *ngFor="let r of subRestaurante" [value]="r">{{r}}</mat-option>
+                              </mat-select>
+                          </mat-form-field>
+                          <mat-form-field *ngIf="idNegocio.categoria=='Experiencia'">
+                              <mat-select placeholder="Subcategoría"  [(ngModel)]="negocio.subcategoriae" name="subcategoriae">
+                                <mat-option  value="primary" *ngFor="let e of subExperiencia" [value]="e">{{e}}</mat-option>
+                              </mat-select>
+                          </mat-form-field>
+                          <mat-form-field  hintLabel="*Email del usuario registrado en VVL que va administrar el negocio en la plataforma.">
+                              <input matInput placeholder="Email del administrador" [(ngModel)]="negocio.administrador" name="administrador">
+                          </mat-form-field>
+                          <br>
+                          <mat-form-field >
+                              <mat-select placeholder="Permiten mascotas"  [(ngModel)]="negocio.mascotas" name="mascotas">
+                                <mat-option  value="primary" *ngFor="let m of posicion" [value]="m">{{m}}</mat-option>
+                              </mat-select>
+                          </mat-form-field>
+                          <mat-form-field>
+                              <input matInput placeholder="Dirección del establecimiento" [(ngModel)]="negocio.direccion" name="direccion">
+                          </mat-form-field>
+                          <p>ubicación del negocio</p>
+                          <mat-form-field>
+                              <input matInput placeholder="Latitud establecimiento" id="latitude" [(ngModel)]="negocio.latitude"  name="latitude">
+                          </mat-form-field>
+                          <mat-form-field>
+                              <input matInput placeholder="Longitud del establecimiento" id="longitude" [(ngModel)]="negocio.longitude"  name="longitude">
+                          </mat-form-field>
+                          <p>***Si desea cambiar las coordenas guardadas, cambie la ubicación en el mapa</p>
+                          <mat-form-field >
+                              <mat-select placeholder="Desea ver ubicación en el mapa"  [(ngModel)]="negocio.posicion" name="posicion">
+                                <mat-option  value="primary" *ngFor="let p of posicion" [value]="p">{{p}}</mat-option>
+                              </mat-select>
+                          </mat-form-field>
+                          <div id="map" style="height: 300px;" *ngIf="negocio.posicion=='SI'">
+                            <input style="text-align: center" value="Ver mapa" class="btn btn-basic btn-block btn-lg" (click)="viewPosition()" target="_blank">
+                          </div>
+                          <agm-map *ngIf="negocio.posicion=='SI'" [latitude]="latitude" [longitude]="longitude">
+                              <agm-marker
+                                [latitude]="latitude"
+                                [longitude]="longitude"
+                                *ngIf="locationChosen"></agm-marker>
+                          </agm-map> 
+                            <input type="submit" value="Editar" class="btn btn-danger btn-block btn-lg">
+                          </form>
+                  </div>
+              </div>
+          </div>
+        </div> 
+    </div>
+  </div>

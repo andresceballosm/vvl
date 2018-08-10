@@ -1,0 +1,67 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row" *ngFor="let i of reserva">
+            <div class="card" *ngIf='idReserva == i.key'>
+                <div class="card-header card-header-danger">
+                    <h4 class="card-title">Reserva {{i.subnegocio}}</h4>
+                    <p class="card-category">Negocio : {{i.negocio}}.</p>
+                </div>                          
+                <div class="col-md-4 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header card-header-basic card-header-icon" (click)="perfilHabitacion(i.idHabitacion)">           
+                            <h4 class="card-title">Cliente:{{i.cliente}}</h4>
+                            <h4 class="card-title">Anfitrion:{{i.adminReserva}}</h4>
+                        </div>
+                        <mat-list>
+                            <mat-list-item>
+                              <a><strong>Fecha inicio :</strong> {{i.fecha_inicio}}</a>                           
+                            </mat-list-item>   
+                            <mat-list-item>
+                              <a><strong>Fecha fin :</strong> {{i.fecha_fin}}</a>
+                            </mat-list-item>
+                            <mat-divider></mat-divider> 
+                            <mat-list-item>
+                              <a><strong>Precio :</strong> {{i.precio}} {{i.moneda}}</a>
+                            </mat-list-item>
+                        </mat-list>
+                    </div>
+                </div>  
+                <h3 style="text-align:center;color:rosybrown">Estado de la reserva</h3>
+                <mat-grid-list cols="1" rowHeight="5:1">
+                    <mat-grid-tile>
+                      <i class="icon" *ngIf='i.estado=="pendiente"' class="material-icons text-basic">done</i>
+                      <a class="estado"  *ngIf='i.estado=="pendiente"'> Pendiente</a>
+                      <a *ngIf='i.estado!="pendiente"'>Pendiente</a>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <i class="icon" *ngIf='i.estado=="pendiente pago"' class="material-icons text-basic">done</i>
+                        <a class="estado" *ngIf='i.estado=="pendiente pago"'> Pendiente pago</a> 
+                        <a *ngIf='i.estado!="pendiente pago"'>Pendiente pago</a> 
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <i class="icon" *ngIf='i.estado=="en proceso"' class="material-icons text-basic">done</i>
+                        <a class="estado" *ngIf='i.estado=="en proceso"'> En proceso</a> 
+                        <a *ngIf='i.estado!="en proceso"'>En proceso</a> 
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <i class="icon" *ngIf='i.estado=="finalizado"' class="material-icons text-basic">done</i>
+                        <a class="estado" *ngIf='i.estado=="finalizado"'> Finalizado</a> 
+                        <a *ngIf='i.estado!="finalizado"'>Finalizado</a> 
+                    </mat-grid-tile>
+                    <mat-grid-tile *ngIf='i.estado=="rechazada"'>
+                        <i class="icon" class="material-icons text-basic">done</i>
+                        <a class="estado"> Rechazada</a> 
+                    </mat-grid-tile>
+                    <mat-grid-tile *ngIf='i.estado=="cancelada"'>
+                        <i class="icon" class="material-icons text-basic">done</i>
+                        <a class="estado"> Cancelada</a> 
+                    </mat-grid-tile>
+                </mat-grid-list> 
+                <input  *ngIf='i.estado!="finalizado"' type="submit" value="Cancelar reserva" (click)="setEstadoReserva(i.key)" class="btn btn-basic btn-block btn-lg">   
+                <div *ngIf='responseCancel!=""' class="errorCancel">{{responseCancel}}</div>  
+                <div *ngIf='responseCancelError!=""' class="errorCancelError">{{responseCancelError}}</div>  
+                <p class="parrafo">*Recuerde que la cancelación de las reservaciones va sujeto a las politicas de cancelación de cada propiedad. </p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12"  *ngIf="(LoadService.loading$ | async) == false">
+                <ui-carousel [infinite]="true" [fade]="false" [speed]="4000" [autoPlay]="false">
+                    <ui-carousel-item *ngFor="let item of items">
+                        <img [ui-lazy-load]="item.name" style="position:absolute; z-index:-2; width: 100%;
+                        height: 100%">
+                        <div (click)="deleteImagen(item.id)" style="position:absolute; z-index: 2;">
+                            <a style="color:white">Eliminar imagen</a>
+                        </div>
+                    </ui-carousel-item>
+                </ui-carousel>
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title">{{idNegocio.nombre}}</h4>
+                  </div>
+              <div class="card-body">    
+                <div class="card card-profile">
+                  <div class="card-body">
+                    <h3 class="card-category text-gray">Detalles</h3>
+                    <div (click)=goUpload()>       
+                        <i class="material-icons" style="position:relative">cloud_upload</i>             
+                        <p style="color:red">Subir imagenes</p>
+                    </div>
+                  </div>
+                </div>
+                <input *ngIf="idNegocio.categoria == 'Hotel'" type="submit" value="Crear habitacion" (click)="goAddSubNegocio()" class="btn btn-basic btn-block btn-lg">
+                <input *ngIf="idNegocio.categoria == 'Restaurante'" type="submit" value="Crear plato" (click)="goAddSubNegocio()" class="btn btn-basic btn-block btn-lg">
+                <input *ngIf="idNegocio.categoria == 'Experiencia'" type="submit" value="Crear experiencia" (click)="goAddSubNegocio()" class="btn btn-basic btn-block btn-lg">                           
+                <div class="col-lg-12 col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-danger">
+                            <h4 class="card-title">Habitaciones</h4>
+                            <p class="card-category">Listado de habitaciones registradas.</p>
+                        </div>                                 
+                        <div class="col-md-4 col-sm-6" *ngFor="let i of habitaciones">
+                            <div class="card card-stats">
+                                <div class="card-header card-header-basic card-header-icon" (click)="perfilHabitacion(i.idHabitacion)">           
+                                    <h3 class="card-title">{{i.nombre}}
+                                    </h3>
+                                    <div>
+                                        <i class="material-icons text-danger">date_range</i>
+                                        <p class="card-category">Reservaciones : {{i.camas_matrimoniales}}</p>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats" (click)="deleteHabitacion(i.idHabitacion)">
+                                        <i class="material-icons text-danger">delete</i>
+                                        <p class="card-category">Eliminar</p>
+                                    </div>
+                                    <div class="stats" (click)="editHabitacion(i.idHabitacion)">
+                                        <i class="material-icons text-danger">mode_edit</i>
+                                        <p class="card-category">Editar</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div> 

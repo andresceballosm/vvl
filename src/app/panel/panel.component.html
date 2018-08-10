@@ -1,0 +1,287 @@
+<div class="main-content">
+    <div style="padding-top:80px">
+        <input type="submit" value="Crear négocio" (click)="goAddNegocio()" class="btn btn-danger btn-block btn-lg">
+            <div class="col-lg-05 col-md-05">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Reservas</h4>
+                        <p class="card-category">Listado de las reservaciones</p>
+                    </div>
+                    <div class="card-body table-responsive">
+                        <table class="table table-hover">
+                            <thead class="text-danger">
+                                <th>Estado</th>
+                                <th>Negocio</th>
+                                <th>Item</th>
+                                <th>Inicio</th>
+                                <th>Fin</th>
+                                <th>Precio</th>
+                            </thead>
+                            <tbody *ngFor="let re of reservas">
+                                <tr>
+                                    <td (click)="goReservas(re.key)">{{re.estado}}</td>
+                                    <td (click)="goReservas(re.key)">{{re.negocio}}</td>
+                                    <td (click)="goReservas(re.key)">{{re.subnegocio}}</td>
+                                    <td (click)="goReservas(re.key)">{{re.fecha_inicio}}</td>
+                                    <td (click)="goReservas(re.key)">{{re.fecha_fin}}</td>
+                                    <td (click)="goReservas(re.key)">{{re.precio}}{{re.moneda}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-09 col-md-09" *ngIf='this.numHoteles>0'>
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Hoteles</h4>
+                        <p class="card-category">Listado de hoteles registrados</p>
+                    </div>
+                    <div class="card-body table-responsive">
+                        <table class="table table-hover">
+                            <thead class="text-danger">
+                                <th>Nombre</th>
+                                <th>SubCategoria</th>
+                                <th>Administrador</th>
+                                <th>Dirección</th>
+                            </thead>
+                            <tbody *ngFor="let h of hotelsList">
+                                <tr>
+                                    <td (click)="perfilHotel(h.key)">{{h.nombre}}</td>
+                                    <td (click)="perfilHotel(h.key)">{{h.subcategoriah}}</td>
+                                    <td (click)="perfilHotel(h.key)">{{h.administrador}}</td>
+                                    <td (click)="perfilHotel(h.key)">{{h.direccion}}</td>
+                                    <td>
+                                      <i (click)="editNegocio(h.key,h.categoria)" class="material-icons">mode_edit</i>
+                                      <i (click)="deleteNegocio(h.key,h.categoria)" class="material-icons">delete</i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-09 col-md-09" *ngIf='this.numRestaurantes>0'>
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Restaurantes</h4>
+                        <p class="card-category">Listado de restaurantes registrados</p>
+                    </div>
+                    <div class="card-body table-responsive">
+                        <table class="table table-hover">
+                            <thead class="text-danger">
+                                <th>Nombre</th>
+                                <th>SubCategoria</th>
+                                <th>Administrador</th>
+                                <th>Direccion</th>
+                                <th></th>     
+                            </thead>
+                            <tbody *ngFor="let t of restaurantsList">
+                                <tr>
+                                    <td (click)="perfilRestaurante(t.key)">{{t.nombre}}</td>
+                                    <td (click)="perfilRestaurante(t.key)">{{t.subcategoriar}}</td>
+                                    <td (click)="perfilRestaurante(t.key)">{{t.administrador}}</td>
+                                    <td (click)="perfilRestaurante(t.key)">{{t.direccion}}</td>
+                                    <td>
+                                    <i (click)="editNegocio(t.key,t.categoria)" class="material-icons">mode_edit</i>
+                                    <i (click)="deleteNegocio(t.key.t.categoria)" class="material-icons">delete</i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-09 col-md-09" *ngIf='this.numExperiencias>0'>
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Experiencias</h4>
+                        <p class="card-category">Listado de experiencias registrados</p>
+                    </div>
+                    <div class="card-body table-responsive">
+                        <table class="table table-hover">
+                            <thead class="text-danger">
+                                <th>Nombre</th>
+                                <th>SubCategoria</th>
+                                <th>Administrador</th>
+                                <th>Dirección</th>                      
+                            </thead>
+                            <tbody *ngFor="let r of experiencesList">
+                                <tr>
+                                    <td (click)="perfilExperiencia(r.key)">{{r.nombre}}</td>
+                                    <td (click)="perfilExperiencia(r.key)">{{r.subcategoriae}}</td>
+                                    <td (click)="perfilExperiencia(r.key)">{{r.administrador}}</td>
+                                    <td (click)="perfilExperiencia(r.key)">{{r.direccion}}</td>
+                                    <td>
+                                    <i (click)="editNegocio(r.key,r.categoria)" class="material-icons">mode_edit</i>
+                                    <i (click)="deleteNegocio(r.key,r.categoria)" class="material-icons">delete</i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <mat-accordion>
+                <mat-expansion-panel (opened)="panelOpenState = true"
+                                     (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header>
+                            <i class="material-icons text-basic">save</i>
+                            <a>Registrar temporada alta</a>
+                    </mat-expansion-panel-header>
+                    <form #myForm="ngForm" (submit)="onSubmitTemp(myForm)">                    
+                        <mat-form-field>
+                            <input type="date" matInput placeholder="Fecha de inicio temporada alta" [(ngModel)]="tempAlta.fecha_inicio" name="fecha_inicio">
+                        </mat-form-field>                                       
+                        <mat-form-field>
+                            <input type="date" matInput placeholder="Fecha de fin temporada alta" [(ngModel)]="tempAlta.fecha_fin" name="fecha_fin">
+                        </mat-form-field>                                       
+                        <mat-form-field>
+                            <input matInput placeholder="Descripcion ej semana santa" [(ngModel)]="tempAlta.descripcion" name="descripcion">
+                        </mat-form-field>                
+                          <input type="submit" value="Guardar" class="btn btn-danger btn-block btn-lg">
+                    </form>
+                </mat-expansion-panel>
+            </mat-accordion>
+            <div class="col-lg-09 col-md-09">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Temporada alta</h4>
+                        <p class="card-category">Listado de las fechas de temporada alta</p>
+                    </div>
+                    <div class="card-body table-responsive">
+                        <table class="table table-hover">
+                            <thead class="text-danger">
+                                <th>Inicio</th>
+                                <th>Fin</th>
+                                <th>Descripción</th>
+                            </thead>
+                            <tbody *ngFor="let t of tempAlta">
+                                <tr>
+                                    <td>{{t.fecha_inicio}}</td>
+                                    <td>{{t.fecha_fin}}</td>
+                                    <td>{{t.descripcion}}</td>
+                                    <td>
+                                    <i (click)="editTempAlta(t.key)" class="material-icons">mode_edit</i>
+                                    <i (click)="deleteTempAlta(t.key)" class="material-icons">delete</i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <mat-spinner class="spinner" *ngIf="showSpinner==true"></mat-spinner>
+                <div class="col-md-4 col-sm-6"  *ngIf='this.numHoteles>0'>
+                    <div class="card card-stats">
+                        <div class="card-header card-header-primary card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">store</i>
+                            </div>
+                            <p class="card-category">Hoteles</p>
+                            <h3 class="card-title">{{this.numHoteles}}
+                                <small>UND</small>
+                            </h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons text-danger">date_range</i>
+                                <a>2</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6"  *ngIf='this.numRestaurantes>0'>
+                    <div class="card card-stats">
+                        <div class="card-header card-header-success card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">store</i>
+                            </div>
+                            <p class="card-category">Restaurantes</p>
+                            <h3 class="card-title">{{this.numRestaurantes}}
+                                <small>UND</small>
+                            </h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">date_range</i> 2
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6"  *ngIf='this.numExperiencias>0'>
+                    <div class="card card-stats">
+                        <div class="card-header card-header-danger card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">store</i>
+                            </div>
+                            <p class="card-category">Experiencias</p>
+                            <h3 class="card-title">{{this.numExperiencias}}
+                                <small>UND</small>
+                            </h3>
+                        </div>
+                        <div class="card-footer">
+    
+                            <div class="stats">
+                                <i class="material-icons">local_offer</i> Experiencias
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card card-chart">
+                        <div class="card-header card-header-success">
+                            <div class="ct-chart" id="dailySalesChart"></div>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">Reservaciones en hoteles</h4>
+                            <p class="card-category">
+                                <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span>Incremento semanal.</p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">access_time</i> updated 4 minutes ago
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-chart">
+                        <div class="card-header card-header-warning">
+                            <div class="ct-chart" id="websiteViewsChart"></div>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">Subscritores</h4>
+                            <p class="card-category">Usuario registrados</p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">access_time</i> campaign sent 2 days ago
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-chart">
+                        <div class="card-header card-header-danger">
+                            <div class="ct-chart" id="completedTasksChart"></div>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">Reservaciones de experiencias</h4>
+                            <p class="card-category">Last Campaign Performance</p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">access_time</i> campaign sent 2 days ago
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>           
+        </div>
+    </div>
+
+  

@@ -1,0 +1,15 @@
+<div>
+  <h2 mat-dialog-title>Alerta</h2>
+<hr>
+<mat-dialog-content>
+  Esta seguro que desea eliminar.
+<br>
+<br>
+<strong>{{data}}</strong>
+</mat-dialog-content>
+<hr>
+<mat-dialog-actions>
+  <button md-raised-button (click)="onCloseConfirm()">Aceptar</button>
+  <button md-raised-button (click)="onCloseCancel()">Cancelar</button>
+</mat-dialog-actions>
+</div>

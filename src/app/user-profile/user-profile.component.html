@@ -1,0 +1,59 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-8">
+              <div class="card">
+                <div class="col-lg-09 col-md-09">
+                    <div class="card">
+                        <div class="card-header card-header-danger">
+                            <h4 class="card-title">Reservas</h4>
+                            <p class="card-category">Listado de las reservaciones</p>
+                        </div>
+                        <div class="card-body table-responsive">
+                            <table class="table table-hover">
+                                <thead class="text-danger">
+                                    <th>Estado</th>
+                                    <th>Negocio</th>
+                                    <th>Item</th>
+                                    <th>Inicio</th>
+                                    <th>Fin</th>
+                                    <th>Precio</th>
+                                </thead>
+                                <tbody *ngFor="let re of reservas">
+                                    <tr>
+                                        <td (click)="goReservas(re.key)">{{re.estado}}</td>
+                                        <td (click)="goReservas(re.key)">{{re.negocio}}</td>
+                                        <td (click)="goReservas(re.key)">{{re.subnegocio}}</td>
+                                        <td (click)="goReservas(re.key)">{{re.fecha_inicio}}</td>
+                                        <td (click)="goReservas(re.key)">{{re.fecha_fin}}</td>
+                                        <td (click)="goReservas(re.key)">{{re.precio |  number: '.2'}} {{re.moneda}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>                      
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-4">
+              <div class="card card-profile">
+                  <div class="card-avatar">
+                    <a href="#pablo" *ngIf='fotoUsuario'>
+                        <img src="{{fotoUsuario}}" class="rounded-circle">
+                    </a>  
+                    <a href="#pablo" *ngIf='!fotoUsuario'>
+                        <img class="img" src="../assets/img/faces/marc.jpg" />
+                    </a>
+                  </div>
+                  <div class="card-body">
+                      <h6 class="card-category text-gray">Mis datos</h6>
+                      <h4 class="card-title">{{nombreUsuario}}</h4>
+                      <h6 class="card-title">{{emailUsuario}}</h6>
+                      <h4 class="card-title">{{phoneUsuario}}</h4>
+                      <a href="#pablo" class="btn btn-danger btn-round">Follow</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+            <div class="card-body">
+                <h4 class="card-title">Recuperar contraseña</h4>
+                <form (submit)="updatePass()">
+                  <div class="form-group">
+                    <label for="email"></label>
+                    <input type="email" [(ngModel)]="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Ingrese el correo electronico registradó">
+                  </div>
+                  <input type="submit" value="Enviar contraseña" class="btn btn-calm btn-block btn-lg">
+                </form>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>

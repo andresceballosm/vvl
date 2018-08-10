@@ -1,0 +1,55 @@
+<div class="logo">
+    <a href="https://www.creative-tim.com" class="simple-text">
+        <div class="logo-img">
+            <img src="/assets/img/angular2-logo-red.png"/>
+        </div>
+        VVL
+    </a>
+    <ul class="nav-item" *ngIf='isLogin'>
+        <img src="{{fotoUsuario}}" class="rounded-circle">
+        <span class="badge pill badege-secondary">{{emailUsuario}}</span>
+   </ul>
+</div>
+<button class="nav-link"></button>
+<div class="sidebar-wrapper">
+    <ul class="nav">
+        <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
+            <a  *ngIf="menuItem.title=='Registro' && !isLogin" class="nav-link" [routerLink]="[menuItem.path]">
+                <i class="material-icons">{{menuItem.icon}}</i>
+                <p>{{menuItem.title}}</p>
+            </a>
+        </li>
+    </ul>
+    <ul class="nav">
+        <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
+            <a *ngIf="menuItem.title=='Inicio de sesión' && !isLogin" class="nav-link" [routerLink]="[menuItem.path]">
+                <i class="material-icons">{{menuItem.icon}}</i>
+                <p>{{menuItem.title}}</p>
+            </a>
+        </li>
+    </ul>
+    <ul class="nav">
+        <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
+            <a  *ngIf="menuItem.title=='Perfil' && isLogin" class="nav-link" [routerLink]="[menuItem.path]">
+                <i class="material-icons">{{menuItem.icon}}</i>
+                <p>{{menuItem.title}}</p>
+            </a>
+        </li>
+    </ul>
+    <ul class="nav">
+        <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
+            <a  *ngIf="menuItem.title!='Registro' && menuItem.title!='Inicio de sesión' && menuItem.title!='Perfil'" class="nav-link" [routerLink]="[menuItem.path]">
+                <i class="material-icons">{{menuItem.icon}}</i>
+                <p>{{menuItem.title}}</p>
+            </a>
+        </li>
+    </ul>
+    <ul class="nav" *ngIf="isLogin" (click)="onClickLogout()">
+        <li clas="nav-item">
+            <a class="nav-link" *ngIf="isLogin">
+                    <i class="material-icons" href="#">input</i>
+                <p>Salir</p>
+            </a>
+        </li>
+    </ul>
+</div>

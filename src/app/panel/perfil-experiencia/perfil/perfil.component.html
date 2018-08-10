@@ -1,0 +1,54 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12"  *ngIf="(LoadService.loading$ | async) == false">
+              <ui-carousel [infinite]="true" [fade]="false" [speed]="4000" [autoPlay]="false">
+                  <ui-carousel-item *ngFor="let item of itemsChild">
+                      <img [ui-lazy-load]="item.nameChild" style="position:absolute; z-index:-2;  width: 100%;
+                      height: 100%">
+                      <div (click)="deleteImagen(item.idChild)" style="position:absolute; z-index: 2;">
+                          <a style="color:white">Eliminar imagen</a>
+                      </div>
+                  </ui-carousel-item>
+              </ui-carousel>
+            <div class="card">
+                <div class="card-header card-header-danger">
+                    <h4 class="card-title">Experiencia - {{experienciasObj.nombre}}</h4>
+                </div>
+            <div class="card-body">    
+              <div class="card card-profile">
+                <div class="card-body">
+                  <h3 class="card-category text-gray">Perfil</h3>
+                  <div (click)=goUpload()>       
+                      <i class="material-icons" style="position:relative">cloud_upload</i>             
+                      <p style="color:red">Subir imagenes</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+              <div class="card-header card-header-danger">
+                  <h4 class="card-title">Detalles</h4>
+              </div>
+              <mat-card>
+                  <mat-card-content *ngFor="let i of experiencia">
+                    <div>
+                      <i class="material-icons text-basic">
+                          people</i>
+                      <a> Personas :<strong>{{i.num_personas}}</strong></a>
+                    </div>
+                    <div>
+                        <i class="material-icons text-basic">do_not_disturb</i>
+                        <a> Edad minima :<strong>{{i.edad_min}}</strong></a>
+                        <a> Cancelación : <strong>{{i.cancelacion}}</strong></a>
+                    </div>   
+                    <div>
+                        <i class="material-icons text-basic">description</i>
+                        <a> Descripción :<strong>{{i.descripcion}}</strong></a>                
+                    </div>                                                                              
+                  </mat-card-content>
+              </mat-card>                      
+            </div>
+          </div>
+      </div>
+  </div>
+</div> 

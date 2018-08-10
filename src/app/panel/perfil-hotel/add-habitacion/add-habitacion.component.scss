@@ -1,0 +1,22 @@
+.mat-input-underline{
+    background-color: gray !important;
+}
+.formMat .mat-form-field{
+    color: gold;
+}
+
+.mat-input-underline .mat-form-field-underline{
+    background-color: gold;
+}
+
+form .ng-valid .mat-input-underline{
+    background-color:gold 
+}
+
+div.mat-input-underline.mat-form-field-underline{
+    background-color: gold !important;
+}
+
+form .ng-valid.mat-input-underline{
+    background-color: gold;
+}

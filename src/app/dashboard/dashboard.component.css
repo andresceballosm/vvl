@@ -1,0 +1,58 @@
+.tab{
+    min-width: 0px !important;
+}
+.spinner{
+    padding-left: 150px;
+    margin-right: auto;
+}
+.mat-progress-spinner.mat-progress-spinner-indeterminate-animation{
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 100px;
+}
+.filter{
+    float: right;
+}
+.mat-expansion-panel{
+    background:transparent; 
+}
+.mat-slider-horizontal{
+    min-width: 250px!important;
+}
+.h5{
+    margin-bottom: -10px !important;
+}
+.imges {
+    height: 100px;
+    width: 100px
+ }
+ .banner{
+     background-image: url("../../assets/img/g.gif");
+     background-repeat: no-repeat;
+     width: 100%;
+     opacity: 0.6;
+     filter: alpha(opacity=50);
+ }
+ .myGridList {
+    height: 100%;
+}
+.mat-grid-tile{
+    position:none;
+}
+.paddingCard{
+    padding-bottom: 3px
+}
+.footCard{
+    color:rosybrown;
+    padding-top: 5px;
+}
+.paddingFoot{
+    padding-right: 15px;
+}
+.titulo{
+    margin-bottom:5px;
+   
+}
+.subtitulo{
+    color: #f44336;
+}

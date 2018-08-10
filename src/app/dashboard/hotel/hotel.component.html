@@ -1,0 +1,61 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <mat-spinner *ngIf="showSpinner==true"></mat-spinner>
+        <div class="row" *ngIf="showSpinner==false">
+            <div class="col-md-12"  *ngIf="(LoadService.loading$ | async) == false">
+                <ui-carousel [infinite]="false" [fade]="false" [speed]="4000" [autoPlay]="false">
+                    <ui-carousel-item *ngFor="let item of items">
+                        <img [ui-lazy-load]="item.name" style="position:absolute; z-index:-2; width: 100%;
+                        height: 100%">
+                    </ui-carousel-item>
+                </ui-carousel>
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title">{{idNegocio.nombre}} ( {{idNegocio.subcategoriah}} )</h4>
+                  </div>
+                <div class="card-body">    
+                        <mat-grid-list cols="2" rowHeight="4:1">
+                            <mat-grid-tile>
+                                <i class="material-icons text-basic">place</i>
+                            <a><strong> {{idNegocio.direccion}}</strong></a>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <i class="material-icons text-basic">pets</i>
+                            <a><strong>Mascotas : {{idNegocio.mascotas}}</strong></a>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                </div>
+              </div>   
+                <h2>Habitaciones</h2>   
+                <div style="padding-top:10px" *ngIf="loadRooms==true">
+                    <mat-card *ngFor="let i of getHabitaciones">
+                        <mat-card-title (click)="perfilHabitacion(i.idHabitacion)" class="foot">{{i.nombre}}</mat-card-title>
+                        <mat-card-title (click)="perfilHabitacion(i.idHabitacion)" style="size:24px">Desde ${{i.precio_noche_tbaja | number: '.2'}}{{i.moneda}}</mat-card-title>
+                        <ui-carousel [infinite]="true" [fade]="false" [speed]="4000" [autoPlay]="false">
+                                <div *ngFor="let img of roomsImg">
+                                    <div *ngIf="i.idHabitacion==img.id">      
+                                        <ui-carousel-item>
+                                            <img [ui-lazy-load]="img.url" style="position:absolute; z-index:-2; width: 100%;
+                                            height: 100%">                                          
+                                        </ui-carousel-item>
+                                    </div>
+                                </div>
+                            </ui-carousel>  
+                        <mat-card-content (click)="perfilHotel(i.idHabitacion)">
+                            <div  (click)="perfilHabitacion(i.idHabitacion)">
+                                <i class="material-icons text-basic">hotel</i>
+                                <a style="margin-right:5px;margin-left:5px"><strong>Camas dobles : {{i.camas_matrimoniales}}</strong></a>
+                                <a style="margin-right:5px;margin-left:5px"><strong>Camas sencillas : {{i.camas_individuales}}</strong></a>
+                            </div>
+                            <div  (click)="perfilHabitacion(i.idHabitacion)">
+                                <i class="material-icons text-basic">wc</i>
+                                <a style="margin-right:5px;margin-left:5px"><strong>Baños privados : {{i.banos_privados}}</strong></a>
+                                <a style="margin-right:5px;margin-left:5px"><strong>Baños públicos : {{i.banos_publicos}}</strong></a>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>   
+            </div>
+        </div>
+    </div>
+</div> 

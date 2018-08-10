@@ -1,0 +1,128 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12"  *ngIf="(LoadService.loading$ | async) == false">
+                <ui-carousel [infinite]="true" [fade]="false" [speed]="4000" [autoPlay]="false">
+                    <ui-carousel-item *ngFor="let i of itemsChild">
+                        <img [ui-lazy-load]="i.nameChild" style="position:absolute; z-index:-2; width: 100%;
+                        height: 100%">
+                        <div (click)="deleteImagen(i.idChild)" style="position:absolute; z-index: 2;">
+                            <a style="color:white">Eliminar imagen</a>
+                        </div>
+                    </ui-carousel-item>
+                </ui-carousel>
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title">Habitación - {{idHabitacion.nombre}}</h4>
+                  </div>
+              <div class="card-body">    
+                <div class="card card-profile">
+                  <div class="card-body">
+                    <h3 class="card-category text-gray">Perfil</h3>
+                    <div (click)=goUpload()>       
+                        <i class="material-icons" style="position:relative">cloud_upload</i>             
+                        <p style="color:red">Subir imagenes</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                <div class="card-header card-header-danger">
+                    <h4 class="card-title">Detalles</h4>
+                </div>
+                <mat-card>
+                    <mat-card-content *ngFor="let i of habitacionesObj">
+                      <div>
+                        <i class="material-icons text-basic">
+                            people</i>
+                        <a *ngIf="i.huespedes > 0"> Huéspedes :<strong>{{i.huespedes}}</strong></a>
+                      </div>
+                      <div>
+                          <i class="material-icons text-basic">
+                              hotel</i>
+                          <a *ngIf="i.camas_matrimoniales > 0"> Camas matrimoniales :<strong>{{i.camas_matrimoniales}}</strong></a>
+                          <a *ngIf="i.camas_individuales > 0"> Camas individuales : <strong>{{i.camas_individuales}}</strong></a>
+                          <a *ngIf="i.camarotes > 0"> Camarotes : <strong>{{i.camarotes}}</strong></a>
+                      </div>
+                      <div>
+                          <i class="material-icons text-basic">wc</i>
+                          <a *ngIf="i.banos_privados > 0"> Baños privados :<strong>{{i.banos_privados}}</strong></a>
+                          <a *ngIf="i.banos_publicos > 0"> Baños publicos : <strong>{{i.banos_publicos}}</strong></a>
+                      </div>   
+                      <div>
+                          <i class="material-icons text-basic">do_not_disturb</i>
+                          <a> Cancelación de la reservación :<strong>{{i.cancelacion}}</strong></a>                
+                      </div>   
+                      <div>
+                          <i class="material-icons text-basic">access_alarm</i>
+                          <a *ngIf="i.hora_llegada!=undefined"> Hora de llegada :<strong>{{i.hora_llegada}}</strong></a>
+                      </div> 
+                      <div>
+                          <i class="material-icons text-basic">access_alarm</i>
+                          <a *ngIf="i.hora_salida!=undefined"> Hora de salida :<strong>{{i.hora_salida}}</strong></a>                     
+                      </div>      
+                      <div>
+                          <p><strong>Servicios:</strong>_{{i.servicios}}</p>
+                      </div>                                                                         
+                    </mat-card-content>
+                </mat-card>
+                <div class="card-body">    
+                    <mat-accordion>
+                        <mat-expansion-panel (opened)="panelOpenState = true"
+                                            (closed)="panelOpenState = false">
+                            <mat-expansion-panel-header style="background-color:#ef5350;">
+                                    <a style="color:white">Crear promoción</a>
+                            </mat-expansion-panel-header>
+                            <form #myForm="ngForm" (submit)="addSales(myForm)">   
+                                <br>
+                                <mat-form-field >
+                                <mat-select placeholder="Tipo"  [(ngModel)]="sales.type" name="type">
+                                    <mat-option  value="primary" *ngFor="let s of type" [value]="s">{{s}}</mat-option>
+                                </mat-select>
+                                </mat-form-field>                 
+                                <mat-form-field *ngIf='sales.type=="Fechas exactas"'>
+                                    <input type="date" matInput placeholder="Fecha de inicio promoción" [(ngModel)]="sales.fecha_inicio" name="fecha_inicio">
+                                </mat-form-field>                                       
+                                <mat-form-field *ngIf='sales.type=="Fechas exactas"'>
+                                    <input type="date" matInput placeholder="Fecha de fin promoción" [(ngModel)]="sales.fecha_fin" name="fecha_fin">
+                                </mat-form-field> 
+                                <mat-form-field>
+                                    <input type="number" matInput placeholder="Porcentaje de descuento" [(ngModel)]="sales.percent" name="percent">
+                                </mat-form-field>                                                      
+                                <input type="submit" value="Guardar" class="btn btn-danger btn-block btn-lg">
+                                <p>*Nota: Las promociones guardadas estan vigentes hasta que decida eliminarlas.</p>
+                            </form>
+                        </mat-expansion-panel>
+                    </mat-accordion>  
+                    <div class="col-lg-09 col-md-09">
+                        <div class="card">
+                            <div class="card-header card-header-danger">
+                                <h4 class="card-title">Promociones</h4>
+                                <p class="card-category">Listado de las promociones vigentes</p>
+                            </div>
+                            <div class="card-body table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="text-danger">
+                                        <th>% Descuento</th>
+                                        <th>Fecha inicio</th>
+                                        <th>Fecha fin</th>
+                                    </thead>
+                                    <tbody *ngFor="let t of salesObj">
+                                        <tr>
+                                            <td>{{t.percent}}</td>
+                                            <td>{{t.fecha_inicio}}</td>
+                                            <td>{{t.fecha_fin}}</td>
+                                            <td>
+                                            <i (click)="deleteSales(t.key)" class="material-icons">delete</i>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>                    
+              </div>
+            </div>
+        </div>
+    </div>
+</div> 

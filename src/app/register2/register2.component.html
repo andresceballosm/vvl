@@ -1,0 +1,30 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+            <div class="card">
+                <div class="card-header card-header-danger">
+                    <h4 class="card-title">Registro</h4>
+                    <p class="card-category">Complete los datos para terminar el registro</p>
+                </div>
+                <div class="card-body">    
+                    <form #myForm="ngForm" (submit)="onSubmit(myForm)">
+                        <mat-form-field>
+                                <input matInput placeholder="Nombre" [(ngModel)]="usuario.nombre" name="nombre">
+                        </mat-form-field>
+                        <mat-form-field >
+                            <mat-select placeholder="Tipo de usuario"  [(ngModel)]="usuario.typeUser" name="typeUser">
+                            <mat-option  value="primary" *ngFor="let h of typeUser" [value]="h">{{h}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                                <input matInput placeholder="Télefono" [(ngModel)]="usuario.telefono" name="telefono">
+                        </mat-form-field>
+                    <input type="submit" value="Continuar" class="btn btn-calm btn-block btn-lg">
+                    </form>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>

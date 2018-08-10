@@ -1,0 +1,27 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-danger">
+                    <h4 class="card-title">Registro temporada alta</h4>
+                </div>
+                <div class="card-body">
+                <form #myForm="ngForm" (submit)="onSubmitTemp(myForm)">                    
+                  <mat-form-field>
+                      <input type="date" matInput placeholder="Fecha de inicio temporada alta" [(ngModel)]="tempAlta.fecha_inicio" name="fecha_inicio">
+                  </mat-form-field>                                       
+                  <mat-form-field>
+                      <input type="date" matInput placeholder="Fecha de fin temporada alta" [(ngModel)]="tempAlta.fecha_fin" name="fecha_fin">
+                  </mat-form-field>                                       
+                  <mat-form-field>
+                      <input matInput placeholder="Descripcion ej semana santa" [(ngModel)]="tempAlta.descripcion" name="descripcion">
+                  </mat-form-field>                
+                    <input type="submit" value="Guardar" class="btn btn-danger btn-block btn-lg">
+                </form>
+              </div>
+            </div>
+        </div>
+      </div> 
+  </div>
+</div>
