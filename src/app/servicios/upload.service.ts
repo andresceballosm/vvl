@@ -46,11 +46,13 @@ export class UploadService {
         upload.id = localStorage.getItem('imagenKey');
         upload.categoria = localStorage.getItem('imagenCategoria');
         upload.idPadre = localStorage.getItem('imagenIdPadre');
+        upload.idHijo = localStorage.getItem('imagenIdHijo');
         upload.portada = false;
         this.saveFileData(upload);
-        //localStorage.removeItem('imagenIdPadre');
         localStorage.removeItem('imagenKey');
-        console.log('esto es upload',upload);
+        localStorage.removeItem('imagenCategoria');
+        localStorage.removeItem('imagenIdPadre');
+        localStorage.removeItem('imagenIdHijo');
       }
     );
   }

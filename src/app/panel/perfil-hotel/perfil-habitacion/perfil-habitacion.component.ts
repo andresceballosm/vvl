@@ -28,16 +28,19 @@ export class PerfilHabitacionComponent implements OnInit {
   getImagenes:any;
   itemsChild: any;
   habitaciones: any;
+  getImages:any;
   //idNegocio:any;
   negocio: Negocio = new Negocio();
   sales: Sales = new Sales();
   key;
+  showSpinner: boolean = true
   id:any;
   idHabitacion:any;
   idRoom:any;
   getImagesChild:any;
   salesList:any;
   salesObj:any;
+  getSales:any;
   habitacionesObj:any;
   submitted = false;
   dialogResult = '';
@@ -48,13 +51,10 @@ export class PerfilHabitacionComponent implements OnInit {
   private globals:GlobalsService) { }
 
   ngOnInit() {
-    this.getImages();
-    this.getSalesList();
-  };
-
-  getImages(){
-    this.idHabitacion = this.globals.getRoomDetail(); //  JSON.parse( sessionStorage.getItem('habitacion'));
-    this.id = sessionStorage.getItem('idHabitacion');
+    this.idHabitacion = this.globals.getRoomDetail(); 
+    console.log(this.idHabitacion);
+    this.id = this.globals.getIdNegocioChild();
+    this.getSales = this.globals.getSalesRoom();
     this.getImages = this.globals.getImagesNegocio();
     this.getImagesChild = this.globals.getImagesNegocioChild()
     let imagenChild = [];
@@ -66,6 +66,12 @@ export class PerfilHabitacionComponent implements OnInit {
     }else{
       this.itemsChild =  [{name:'/assets/img/404.jpg'}];
     }
+    let salesObj = [];
+    for ( var i in this.getSales){
+      salesObj.push({key:i,fecha_inicio:this.getSales[i].fecha_inicio, fecha_fin:this.getSales[i].fecha_fin,
+      percent:this.getSales[i].percent});
+    }
+     this.salesObj = salesObj;
     
     let habitaciones = new Array;
       habitaciones.push({idHabitacion:this.idHabitacion.idHabitacion,nombre:this.idHabitacion.nombre, servicios:this.idHabitacion.servicios,
@@ -76,8 +82,13 @@ export class PerfilHabitacionComponent implements OnInit {
       cancelacion:this.idHabitacion.cancelacion,descripcion:this.idHabitacion.descripcion,reglas:this.idHabitacion.reglas});
 
     this.habitacionesObj = habitaciones;
+    this.showSpinner = false;
+    //this.getSalesList();
+  };
+  /*
+  getImages(){
 
-    /*
+    
       let imagen = [];
       this.getImagenes = this.ImageService.getImage(this.id)
       .then(function(snapshot){
@@ -97,12 +108,14 @@ export class PerfilHabitacionComponent implements OnInit {
           let imagen ='';
         }
       }).then(() => this.viewImagenes(imagen))
-      .catch(() => this.viewImagenes(imagen))*/
+      .catch(() => this.viewImagenes(imagen))
   };
-
+*/
+/*
   getSalesList(){
     let salesObj = [];
-    this.idRoom =this.idHabitacion.idHabitacion;
+    this.idRoom =this.id;
+    console.log('idRoom',this.idRoom);
     this.salesList = this.crudService.getSalesList(this.idRoom)
     .then(function(snapshot){
       let temporada = snapshot.val();
@@ -118,7 +131,7 @@ export class PerfilHabitacionComponent implements OnInit {
   };
   getTemporadas(temp){
     this.salesObj = temp;
-  }
+  }*/
 
   goUpload(){
     //this.negocio = JSON.parse(sessionStorage.getItem('negocio'));
@@ -154,6 +167,7 @@ export class PerfilHabitacionComponent implements OnInit {
   }
   
   addSales(form: NgForm){
+    let idNegocio = this.idHabitacion.idNegocio;
     let dialogRef = this.dialog.open(DialogoAlertaComponent, {
       width: '600px',
       data:'Esta seguro que desea guardar esta promoción.'
@@ -163,10 +177,10 @@ export class PerfilHabitacionComponent implements OnInit {
       console.log(`Dialog cerrado: ${result}`); 
       this.dialogResult  = result;
       if( this.dialogResult == 'Confirm'){
-       this.sales.idRoomSales=this.idHabitacion.idHabitacion;
-       this.crudService.insertSales(this.sales)
+       this.sales.idRoomSales=this.id;
+       this.crudService.insertSales(this.sales,idNegocio,this.id)
        form.resetForm();
-       this.getSalesList();
+       //this.getSalesList();
       }
     })
   }

@@ -60,14 +60,13 @@ export class CrudService {
   getExperiencesAdminList(){
     return  this.negocio = this.db.list('/experiences');
   }
-
-
+  /*
   getNegociosAdminList(): AngularFireList<Negocio> {
     return  this.negocio = this.db.list(this.dbPath,  ref => ref.orderByChild('type').equalTo('Negocio'));
   };
   getHotelesList(): AngularFireList<Negocio> {
     return  this.negocio = this.db.list(this.dbPath,  ref => ref.orderByChild('categoria').equalTo('Hotel'));
-  };
+  };*/
 
   getHotelesList2(offset,startKey): AngularFireList<Negocio> {
     console.log(startKey);
@@ -77,15 +76,17 @@ export class CrudService {
       return  this.negocio = this.db.list('/hotels/',  ref => ref.orderByKey().startAt(startKey).limitToFirst(offset+1));
     }
   }
+  /*
   getRestaurantsList(): AngularFireList<Negocio> {
     return  this.negocio = this.db.list(this.dbPath,  ref => ref.orderByChild('categoria').equalTo('Restaurante'));
   };
   getExperiencesList(): AngularFireList<Negocio> {
     return  this.negocio = this.db.list(this.dbPath,  ref => ref.orderByChild('categoria').equalTo('Experiencia'));
-  };
+  };*/
   getNegociosPortadaList(): AngularFireList<Negocio> {
     return  this.negocio = this.db.list(this.dbPath,  ref => ref.orderByChild('portada').equalTo(true));
   };
+  /*
   getHabitacionesList(id){
     return firebase.database().ref('hotels/').orderByChild('idNegocio').equalTo(id).once('value');
   };
@@ -97,21 +98,22 @@ export class CrudService {
   };
   getUrlImagesList(): AngularFireList<UrlImage> {
     return this.urlImage;
-  };
+  };*/
   getTempAltaList(admin) {
-    return firebase.database().ref('vvdl-53913/').orderByChild('adminTemp').equalTo(admin).once('value');
+    return firebase.database().ref('temporadas/').orderByChild('adminTemp').equalTo(admin).once('value');
   };
+  /*
   getSalesList(idRoom) {
     return firebase.database().ref('vvdl-53913/').orderByChild('idRoomSales').equalTo(idRoom).once('value');
-  };
+  };*/
   getReservasList(admin) {
-    return firebase.database().ref('vvdl-53913/').orderByChild('adminReserva').equalTo(admin).once('value');
+    return firebase.database().ref('reservas/').orderByChild('adminReserva').equalTo(admin).once('value');
   };
   getReservasForNegocio(idNegocio) {
-    return firebase.database().ref('vvdl-53913/').orderByChild('idNegocioreserva').equalTo(idNegocio).once('value');
+    return firebase.database().ref('reservas/').orderByChild('idNegocioreserva').equalTo(idNegocio).once('value');
   };
   getReservasClientList(admin) {
-    return firebase.database().ref('vvdl-53913/').orderByChild('cliente').equalTo(admin).once('value');
+    return firebase.database().ref('reservas/').orderByChild('cliente').equalTo(admin).once('value');
   };
   insertNegocio(negocio: Negocio){
     this.db.list('/vvdl-53913').push(negocio)
@@ -125,18 +127,18 @@ export class CrudService {
   insertExperiencie(negocio: Negocio){
     this.db.list('/experiences').push(negocio)
   };
-  insertSales(sales: Sales){
-    this.db.list('/vvdl-53913').push(sales)
+  insertSales(sales: Sales,idNegocio,idRoom){
+    this.db.list(`${this.hotelsPath}/${idNegocio}/rooms/${idRoom}/sales`).push(sales)
   };
   insertTempAlta(tempAlta: TempAlta): void{
-    this.db.list('/vvdl-53913').push(tempAlta)
+    this.db.list('/temporadas').push(tempAlta)
   };
   insertPreserva(reserva: Reserva){
     console.log(reserva);
-    return this.db.list('/vvdl-53913').push(reserva)
+    return this.db.list('/reservas').push(reserva)
   };
   deleteTempAlta($key: string){ 
-    this.db.list('/vvdl-53913').remove($key)
+    this.db.list('/temporadas').remove($key)
   };
   insertHabitacion(habitacion: Habitacion,uid): void {
     this.db.list(`${this.hotelsPath}/${uid}/rooms`).push(habitacion);
@@ -183,7 +185,7 @@ export class CrudService {
   updateExperiencia(experiencia: Experiencia, $key: string,idNegocio){
     this.db.list(`${this.ExperiencesPath}/${idNegocio}/experiencias`).update($key,experiencia)
     .then(_ => console.log('success'))
-    .catch(err => console.log(err, 'You do not have access!'));;
+    .catch(err => console.log(err, 'You do not have access!'));
   };
   //sin uso
   deleteNegocio($key: string,idPadre){ 

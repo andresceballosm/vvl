@@ -37,6 +37,8 @@ import { HabitacionComponent } from '../../dashboard/hotel/habitacion/habitacion
 import { ReservaComponent } from '../../panel/reserva/reserva.component';
 import { ClientReservasComponent } from '../../client-reservas/client-reservas.component';
 import { ListhotelesComponent } from '../../listhoteles/listhoteles.component';
+import { PerfilhotelComponent } from '../../listhoteles/perfilhotel/perfilhotel.component';
+import { PerfilroomComponent } from '../../listhoteles/perfilhotel/perfilroom/perfilroom.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -68,9 +70,10 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'restaurante',    component: RestauranteComponent}, 
     { path: 'experiencia',    component: ExperienciaComponent}, 
     { path: 'tempAlta',    component: TemporadasComponent},
-    { path: 'habitacion',    component: HabitacionComponent},
+    { path: 'habitacion',    component: PerfilroomComponent},
     { path: 'reserva',    component: ReservaComponent, canActivate:[AuthGuard]},
     { path: 'reservaclient',    component: ClientReservasComponent, canActivate:[AuthGuard]},
     { path: 'hotels',    component: ListhotelesComponent},
+    { path: 'pf-hotel',    component: PerfilhotelComponent},
     
 ];

@@ -40,9 +40,8 @@ export class PerfilExperienciaComponent implements OnInit {
     private globals:GlobalsService) { }
 
   ngOnInit() {
-    //this.getImages();
-    this.getExperiencias = this.globals.getExperiences() //JSON.parse( sessionStorage.getItem('experienciasobj'));
-    this.idNegocio = this.globals.getNegocio();//JSON.parse(sessionStorage.getItem('negocio'));
+    this.getExperiencias = this.globals.getExperiences()
+    this.idNegocio = this.globals.getNegocio();
     this.getImages = this.globals.getImagesNegocio();
     let experiencia = this.getExperiencias;
     let imagen = [];
@@ -125,8 +124,8 @@ export class PerfilExperienciaComponent implements OnInit {
     for(var n in experiencia){
       if(n == idExperiencia){
         this.globals.setExperienciaDetail(experiencia[n]);
-        this.globals.setImagesNegocioChild(experiencia[n].images)
-        sessionStorage.setItem('idExperiencia', idExperiencia);
+        this.globals.setImagesNegocioChild(experiencia[n].images);
+        this.globals.setIdNegocioChild(idExperiencia);
         this.router.navigate(['/perfil-exp']);
       }
     }

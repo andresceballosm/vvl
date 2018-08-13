@@ -16,10 +16,14 @@ export class GlobalsService {
   imagesNegocio;
   negocio;
   experiencias;
+  idNegocioChild;
+  salesRoom;
+  tempAlta;
+  sale;
 
   constructor() {}
 
-  setImagesNegocio(val: string){
+  setImagesNegocio(val){
     this.imagesNegocio = val; 
   };
   getImagesNegocio(){
@@ -31,11 +35,17 @@ export class GlobalsService {
   getNegocio(){
     return this.negocio;
   };
-  setImagesNegocioChild(val: string){
+  setImagesNegocioChild(val){
     this.imagesNegocio = val; 
   };
   getImagesNegocioChild(){
     return this.imagesNegocio;
+  };
+  setIdNegocioChild(val: string){
+    this.idNegocioChild = val;
+  };
+  getIdNegocioChild(){
+    return this.idNegocioChild;
   };
   //----------------------------VARIABLES H ----------------------
   setRooms(val: string){
@@ -45,7 +55,14 @@ export class GlobalsService {
   getRooms(){
     return this.rooms;
   };
-  setRoomDetail(val: string){
+  setSalesRoom(val :string){
+    this.salesRoom = val;
+    console.log('rooms en service',this.rooms);
+  };
+  getSalesRoom(){
+    return this.salesRoom;
+  };
+  setRoomDetail(val){
     this.roomDetail = val;
   };
   getRoomDetail(){
@@ -58,7 +75,18 @@ export class GlobalsService {
   getRoomEdit(){
     return this.roomEdit;
   };
-
+  setTempAlta(val){
+    this.tempAlta = val;
+  };
+  getTempAlta(){
+    return this.tempAlta;
+  };
+  setSale(val){
+    this.sale = val;
+  };
+  getSale(){
+    return this.sale;
+  };
   //------------------------------VARIABLES R----------------------------
   setPlatoDetail(plato){
     this.platoDetail = plato;

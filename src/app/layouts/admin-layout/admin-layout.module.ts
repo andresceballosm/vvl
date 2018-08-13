@@ -46,6 +46,8 @@ import { ReservaComponent } from '../../panel/reserva/reserva.component';
 import { ClientReservasComponent } from '../../client-reservas/client-reservas.component';
 import * as moment from 'moment';
 import { ListhotelesComponent } from '../../listhoteles/listhoteles.component';
+import { PerfilhotelComponent } from '../../listhoteles/perfilhotel/perfilhotel.component';
+import { PerfilroomComponent } from '../../listhoteles/perfilhotel/perfilroom/perfilroom.component';
 import {
   MatButtonModule,
   MatIconModule,
@@ -67,6 +69,8 @@ import {
   MatRadioModule,
   MatDatepickerModule,
   MatNativeDateModule,
+  MatMenuModule,
+  MatToolbarModule
 } from '@angular/material';
 
 const googleMapsCore = AgmCoreModule.forRoot({
@@ -98,6 +102,8 @@ const googleMapsCore = AgmCoreModule.forRoot({
     MatDatepickerModule,
     MatNativeDateModule,
     MatProgressSpinnerModule,   
+    MatToolbarModule,
+    MatMenuModule,
     Ng2CarouselamosModule,
     UICarouselModule,
     googleMapsCore
@@ -138,7 +144,9 @@ const googleMapsCore = AgmCoreModule.forRoot({
     HabitacionComponent,
     ReservaComponent,
     ClientReservasComponent,
-    ListhotelesComponent
+    ListhotelesComponent,
+    PerfilhotelComponent,
+    PerfilroomComponent
   ],
   entryComponents: [
       MyDialogComponent,

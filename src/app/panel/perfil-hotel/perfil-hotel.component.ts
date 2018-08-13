@@ -35,6 +35,7 @@ export class PerfilHotelComponent implements OnInit {
   idNegocio:any;
   key:string;
   id:any;
+  showSpinner: boolean = true
   negocio: Negocio = new Negocio();
   submitted = false;
   dialogResult = '';
@@ -61,6 +62,7 @@ export class PerfilHotelComponent implements OnInit {
       habitacionesList.push({idHabitacion:i,nombre:this.getHabitaciones[i].nombre})
     }
     this.habitaciones = habitacionesList;
+    this.showSpinner = false;
   };
   /*
   getImages(){
@@ -126,7 +128,8 @@ export class PerfilHotelComponent implements OnInit {
     let habitacion = this.getHabitaciones
     for(var n in habitacion){
       if(n == idHabitacion){
-        sessionStorage.setItem('idHabitacion', idHabitacion);
+        this.globals.setIdNegocioChild(idHabitacion);
+        this.globals.setSalesRoom(habitacion[n].sales);
         this.globals.setRoomDetail(habitacion[n]);
         this.globals.setImagesNegocioChild(habitacion[n].images)
         this.router.navigate(['/perfil-habitacion']);

@@ -35,7 +35,13 @@ export class NavbarComponent implements OnInit {
     }
 
     backPage(){
-        this.location.back();
+       // if(this.router.isActive('/upload') == true)
+        if(this.location.path() == '/upload' || this.location.path() == '/perfil-habitacion' || this.location.path() == '/perfil-eat'
+        || this.location.path() == '/perfil-exp'){
+            this.router.navigate(['/lenap'])
+        }else{
+            this.location.back();
+        }
     }
     
     sidebarOpen() {

@@ -46,7 +46,7 @@ export class PerfilPlatoComponent implements OnInit {
     let platos = new Array;
     this.idPlato = this.globals.getPlatoDetail();
     this.getImagesChild = this.globals.getImagesNegocioChild();
-    this.id = sessionStorage.getItem('idPlato');
+    this.id = this.globals.getIdNegocioChild();
     this.getImages = this.globals.getImagesNegocio();
     let imagenChild = [];
     if( this.getImagesChild != null){
@@ -117,7 +117,7 @@ export class PerfilPlatoComponent implements OnInit {
       console.log(`Dialog cerrado: ${result}`); 
       this.dialogResult  = result;
       if( this.dialogResult == 'Confirm'){
-        this.ImageService.deleteImagenExperienceChild(id,idNegocio,idExperienciaChild);
+        this.ImageService.deleteImagenPlato(id,idNegocio,idExperienciaChild);
         let keyNegocio = this.idPlato.key;
         sessionStorage.removeItem(keyNegocio);
         this.router.navigate(['/lenap']);;

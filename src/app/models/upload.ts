@@ -2,6 +2,7 @@ export class Upload {
     $key: string;
     id:string;
     idPadre:string;
+    idHijo:string;
     file: File;
     url: string;
     progress: number;

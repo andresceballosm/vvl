@@ -101,7 +101,7 @@ export class PerfilComponent implements OnInit {
     this.negocio = this.globals.getNegocio();
     console.log(this.negocio);
     let idPadre = this.negocio.key
-    let keyExperiencia = sessionStorage.getItem('idExperiencia');
+    let keyExperiencia = this.globals.getIdNegocioChild();
     this.addImagen(keyExperiencia,idPadre);
   };
 
@@ -114,8 +114,9 @@ export class PerfilComponent implements OnInit {
   };
   deleteImagen(id){
     this.negocio = this.globals.getNegocio();
-    let idNegocio = this.negocio.idNegocio;
-    let idPlato = sessionStorage.getItem('idExperiencia');
+    console.log(this.negocio);
+    let idNegocio = this.negocio.key;
+    let idPlato = this.globals.getIdNegocioChild();
     let dialogRef = this.dialog.open(DialogoAlertaComponent, {
       width: '600px',
       data:'Esta seguro que desea eliminar la imagen.'
@@ -125,7 +126,7 @@ export class PerfilComponent implements OnInit {
       console.log(`Dialog cerrado: ${result}`); 
       this.dialogResult  = result;
       if( this.dialogResult == 'Confirm'){
-        this.ImageService.deleteImagenPlato(id,idNegocio,idPlato);
+        this.ImageService.deleteImagenExperienceChild(id,idNegocio,idPlato);
         this.router.navigate(['/lenap'])
       }
     })

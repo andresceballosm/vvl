@@ -40,11 +40,8 @@ export class PerfilRestauranteComponent implements OnInit {
   ngOnInit() {
    // this.getImages();
    this.idNegocio = this.globals.getNegocio();
-   console.log(this.idNegocio);
    this.getPlatos = this.globals.getPlatos();
-   console.log('getPLatos',this.getPlatos);
    this.getImages = this.globals.getImagesNegocio();
-   console.log('getImages',this.getImages)
    let platosList = []
     for ( var i in this.getPlatos){
       platosList.push({idPlato:i,nombre:this.getPlatos[i].nombre,cantidad:this.getPlatos[i].cantidad,
@@ -124,8 +121,8 @@ export class PerfilRestauranteComponent implements OnInit {
     for(var n in this.getPlatos){
       if(n == idPlato){
         this.globals.setPlatoDetail(this.getPlatos[n]);
-        this.globals.setImagesNegocioChild(this.getPlatos[n].images)
-        sessionStorage.setItem('idPlato', idPlato);
+        this.globals.setImagesNegocioChild(this.getPlatos[n].images);
+        this.globals.setIdNegocioChild(idPlato);
         this.router.navigate(['/perfil-eat']);
       }
     }

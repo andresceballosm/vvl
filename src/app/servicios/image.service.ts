@@ -66,6 +66,7 @@ export class ImageService {
     this.db.list(`${this.RestaurantsPath}/${idNegocio}/platos/${idPlato}/images`).remove($key);
   };
   deleteImagenExperienceChild($key: string, idNegocio, idExperience){
+    console.log('idNegocio',idNegocio + 'idExperience', idExperience);
     this.db.list(`${this.ExperiencesPath}/${idNegocio}/experiencias/${idExperience}/images`).remove($key);
   };
   

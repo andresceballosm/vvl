@@ -1,34 +1,45 @@
 <div class="main-content">
-  <div class="container-fluid">
+  <div class="container-fluid"> 
     <div style="padding-top:150px;" class="row">
-        <div class="col-md-12">
-            <div *ngFor="let i of hoteles">
-                <mat-card *ngIf="i.categoria == 'Hotel'">
-                    <mat-card-title (click)="perfilHotel(i.key)" class="titulo">{{i.nombre}}</mat-card-title>
+        <div  style="padding-top:20px" class="col-md-12">
+            <div style="padding-left:100px">
+            <mat-spinner *ngIf="showSpinner==true"></mat-spinner>  
+            </div>
+            <mat-grid-list cols="2" rowHeight="3:5">
+                <mat-grid-tile class="grid"  *ngFor="let i of hoteles">
+                <mat-card>
+                    <mat-card-header>
+                    <mat-card-title class="titleCard" (click)="perfilHotel(i.key)" >{{i.nombre}}</mat-card-title>
                     <mat-card-subtitle (click)="perfilHotel(i.key)" class="subtitulo">{{i.subcategoriah}}</mat-card-subtitle>
-                    <ui-carousel  [infinite]="false" [fade]="false" [speed]="4000" [autoPlay]="false">
-                        <div *ngFor="let item of items">
-                            <div *ngIf="item.idNegocio == i.key">
-                                <ui-carousel-item *ngIf="item.name!=undefined">
-                                    <div style="position:absolute; z-index:2"><p style="color:white">{{item.nombre}}</p></div>
-                                    <img [ui-lazy-load]="item.name" style="position:absolute;z-index:-2; width: 100%;
-                                    height:100%"> 
-                                </ui-carousel-item>
+                    </mat-card-header>
+                     <mat-card-content class="matContent">
+                        <ui-carousel  [infinite]="false" width="120px" height="120px" [fade]="false" [speed]="4000" [autoPlay]="false">
+                            <div *ngFor="let item of items">
+                                <div *ngIf="item.idNegocio == i.key">
+                                    <ui-carousel-item *ngIf="item.name!=undefined">                  
+                                        <img [ui-lazy-load]="item.name" style="position:absolute;z-index:-2; width: 100%;
+                                        height:100%"> 
+                                    </ui-carousel-item>
+                                </div>
                             </div>
-                        </div>
-                    </ui-carousel>  
-                    <mat-card-content (click)="perfilHotel(i.key)">
-                          <div class="footCard" (click)="perfilHotel(i.key)">
-                            <i class="material-icons text-basic">place</i>
-                            <a class="paddingFoot"><strong>{{i.direccion}}   </strong></a>
-                            <i class="material-icons text-basic">pets</i>
-                            <a class="paddingFoot"><strong>{{i.mascotas}}</strong></a>
-                        </div>
+                        </ui-carousel>                 
                     </mat-card-content>
+                     <mat-card-footer  (click)="perfilHotel(i.key)">
+                         <div class="foot">
+                             <a class="paddingFoot"><strong>{{i.ciudad}}</strong></a>
+                         </div>
+                         <div class="foot">
+                           
+                         </div>
+                    </mat-card-footer>
                 </mat-card>
-             </div>
-            <button (click)="prevPage()" [disabled]="!prevKeys?.length">Atrás</button>
-            <button (click)="nextPage()" [disabled]="!nextKey">Siguiente</button>
+                </mat-grid-tile>
+            </mat-grid-list>
+            <br>
+            <div class="paginator">
+                <button (click)="prevPage()" [disabled]="!prevKeys?.length">Atrás</button>
+                <button (click)="nextPage()" [disabled]="!nextKey">Siguiente</button>
+            </div>
         </div>
     </div>
   </div>

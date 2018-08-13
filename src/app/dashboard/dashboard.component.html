@@ -12,6 +12,13 @@
             </form>
         </div> 
     </div>      
+ 
+<mat-grid-list cols="3" rowHeight="2:1">
+  <mat-grid-tile (click)="goHotels()"><u>Alojamientos</u></mat-grid-tile>
+  <mat-grid-tile (click)="goRestaurants()"><u>Restaurantes</u></mat-grid-tile>
+  <mat-grid-tile (click)="goExperiences()"><u>Experiencias</u></mat-grid-tile>
+</mat-grid-list>
+<!--
 <mat-tab-group #tabGroup (selectedTabChange)="onTabs($event)">
   <mat-tab label="VVL">
   <mat-spinner *ngIf="showSpinner==true"></mat-spinner>
@@ -291,5 +298,5 @@
             </div>
         </div>
   </mat-tab>
-</mat-tab-group> 
+</mat-tab-group> -->
 </div>

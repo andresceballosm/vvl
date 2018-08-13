@@ -69,7 +69,7 @@ export class DashboardComponent implements OnInit {
     }
     return true;
   };
- 
+ /*
   onTabs = (tabChangeEvent: MatTabChangeEvent): void => {
     if(tabChangeEvent.index==1 && sessionStorage.getItem('negociosHotels')==null){
      // this.LoadService.fireLoader()
@@ -131,7 +131,8 @@ export class DashboardComponent implements OnInit {
           sessionStorage.setItem('imagesExperiences', JSON.stringify(imagenExperiencia));
         });
     }
-  }
+  }*/
+
   getPortadaList(){
     this.LoadService.fireLoader()
     this.showSpinner=true;
@@ -186,7 +187,17 @@ export class DashboardComponent implements OnInit {
       this.experiencesImg =  [{name:'/assets/img/404.jpg'}];
     }
     this.showSpinner=false;
-  }
+  };
+  goHotels(){
+    this.router.navigate(['/hotels']);
+  };
+  goExperiences(){
+
+  };
+  goRestaurants(){
+    
+  };
+  /*
   perfilHotel(key){
     sessionStorage.removeItem('habitacionesObj');
     this.negocios.forEach(element => {
@@ -217,7 +228,8 @@ export class DashboardComponent implements OnInit {
         .catch(() => this.router.navigate(['/hotel']))   
       }
     });
-  }
+  }*/
+  /*
   perfilRestaurante(key){
     sessionStorage.removeItem('eatsObj');
     this.negocios.forEach(element => {
@@ -275,7 +287,7 @@ export class DashboardComponent implements OnInit {
         .catch(() => this.router.navigate(['/experiencia']))   
       }
     });
-  }
+  }*/
   onSubmit(form: NgForm) {
     console.log(this.negocio);
   };
@@ -285,7 +297,7 @@ export class DashboardComponent implements OnInit {
 
     })
   }
-  
+
   startAnimationForLineChart(chart){
       let seq: any, delays: any, durations: any;
       seq = 0;

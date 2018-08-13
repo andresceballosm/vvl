@@ -183,19 +183,18 @@ export class PanelComponent implements OnInit {
         }
         console.log(tempAltaObj);
         //guarda objeto en session identificado con el id del negocio
-        sessionStorage.setItem('platosObj', JSON.stringify(tempAltaObj));
+        //sessionStorage.setItem('platosObj', JSON.stringify(tempAltaObj));
     }).then(() => this.getTemporadas(tempAltaObj))
   };
 
   getTemporadas(temp){
-    console.log(temp);
     this.tempAlta = temp;
   };
 
-  getHabitacionesList(){
+  /*getHabitacionesList(){
     this.idNegocio=JSON.parse(sessionStorage.getItem('negocio'));
     this.id = this.idNegocio.key;
-  };
+  };*/
   getReservasList(){
     let adminReserva= localStorage.getItem('user');
     let reservasList = [];
@@ -278,15 +277,11 @@ export class PanelComponent implements OnInit {
 
   //------------------------------------DETAILS----------------------------------------
   perfilHotel(key){
-    sessionStorage.removeItem('habitacionesObj');
     this.hotelsList.forEach(element => {
       if(element.key==key){
         this.globals.setRooms(element.rooms);
         this.globals.setImagesNegocio(element.images);
         this.globals.setNegocio(element);
-        sessionStorage.setItem('habitacionesObj', JSON.stringify(element.rooms));
-        sessionStorage.setItem('imagesNegocio', JSON.stringify(element.images));
-        sessionStorage.setItem('negocio', JSON.stringify(element));
       }
     })
     this.router.navigate(['/perfil-hotel'])
@@ -324,11 +319,8 @@ export class PanelComponent implements OnInit {
     sessionStorage.removeItem('platosObj');
     this.restaurantsList.forEach(element => {
       if(element.key==key){
-        sessionStorage.setItem('platosObj', JSON.stringify(element.platos));
         this.globals.setPlatos(element.platos);
-        sessionStorage.setItem('imagesNegocio', JSON.stringify(element.images));
         this.globals.setImagesNegocio(element.images);
-        sessionStorage.setItem('negocio', JSON.stringify(element));
         this.globals.setNegocio(element);
       }
     })
